@@ -1,0 +1,266 @@
+HOME
+
+    - Views
+    
+        - index
+            all Blog
+            
+ACCOUNT
+
+    - Views
+    
+        - login
+            if user authenticated 
+                redirect
+            get login_form if valid 
+                login user and return success message
+                
+        - logout
+            @login_required
+            logout user
+            
+        - register
+            if user authenticated 
+                redirect
+            get register_form if valid
+                create and login user, return success message
+                else return error message
+                
+        - profile
+            @login_required
+            return user
+        
+    - Forms
+    
+        - login_form
+            email
+            password
+        
+        - register_form
+            first name
+            last name
+            username
+            email
+            profile_image
+            password
+            password confirm
+            
+            cleaned email
+                search users for email
+                raise error if found to exist
+                return email
+            
+            cleaned password
+                check password and password_confirm match
+                raise error if not matching
+                return password_confirm
+                
+BUG_TICKETS
+    
+    - Views
+    
+        - tickets
+            all Tickets
+            
+        - create_ticket
+            get ticket_form if valid
+                save ticket adding date, status, upvotes
+                
+        - edit_ticket
+            get ticket_form as instance
+                save ticket with changed details
+    
+    - Models
+    
+        - Ticket
+            name
+            title
+            topic
+            description
+            date
+            status
+            upvotes
+            
+    - Forms
+    
+        - ticket_form
+            Ticket
+                name
+                title
+                topic
+                description
+        
+BLOG
+
+    - Views
+    
+        - blog
+            all Blog
+    
+    - Model
+    
+        - Blog
+            title
+            author
+            topic
+            description
+            date
+            image
+            
+DONATIONS
+
+    - Views
+        
+        - make_donation
+            @login_required
+            get donation_form
+            get payment_form
+            if both valid
+                save donation adding name and email from user
+                try stripe charge amount to payment_form
+                except card_error
+                if payment accepted
+                    success message
+                else
+                    error message
+            else
+                error message
+    
+    - Model
+        
+        - Donation
+            first_name
+            last_name
+            email
+            amount
+            date
+    
+    - Forms
+        
+        - donation_form
+            donation_amount
+        
+        - payment_form
+            card_number
+            cvv
+            expiry_month
+            expiry_year
+            stripe_id
+    
+FORUM
+
+    - Views
+    
+        - forum
+            get all Category
+            
+        - category
+            get all Subcategory
+            get all Topic
+                
+        - subcategory
+            get all Topic
+            
+        - topic
+            get all Post
+        
+        - create_topic
+            @login_required
+            get topic_form if valid
+                save topic adding date, category id, author id
+                redirect to topic
+                
+        - post
+            @login_required
+            get post_form if valid
+                save post adding date, topic id, author id
+                redirect to topic
+                
+    - Models
+    
+        - Category
+            title
+            description
+            topics
+            posts
+            subcategories
+            
+        - Subcategory
+            title
+            description
+            topics
+            posts
+            category
+            
+        - Topic
+            title
+            author
+            description
+            image
+            date
+            category
+            posts
+            views
+            tags
+            locked
+        
+        - Post
+            title
+            author
+            description
+            topic
+            image
+            date
+            upvote
+            flagged
+            
+    - Forms
+        
+        - topic_form
+            Topic
+                title
+                description
+                image
+                tags
+        
+        - post_form
+            Post
+                title
+                author
+                description
+                image
+                
+GRAPHS
+
+    - Views
+    
+        - graphs
+        
+            most_upvoted_bugs_graph
+                get all bug_tickets by upvotes
+                
+            no_of_bug_by_status_graph
+                get all bug_tickets by status
+                
+            no_of_bug_by_topic_graph
+                get all bug_tickets by topic
+                
+            donation_slider_graph
+                get all donation_amount as total
+                
+CONTACT
+
+    - Views
+    
+        - contact
+            get contact_form if valid
+                
+        
+    - Forms
+    
+        - contact_form
+            name
+            email
+            subject
+            message
+            
