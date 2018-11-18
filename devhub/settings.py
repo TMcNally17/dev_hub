@@ -27,6 +27,9 @@ if os.environ.get("DEVELOPMENT"):
     development = True
 else:
     development = False
+    
+if development:
+    DEBUG = development
 
 ALLOWED_HOSTS = [os.environ.get("C9_HOSTNAME"),]
 
@@ -122,11 +125,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
