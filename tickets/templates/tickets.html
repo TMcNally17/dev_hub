@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <p>Create a ticket here for any bugs you have found and we will fix them,
+    check back to see if the has been updated.</p>
+    {% if user.is_authenticated %}
+    <a href="{% url 'create_ticket' %}">
+        <button class="btn btn-primary">Create Ticket</button>
+    </a>
+    {% else %}
+    <p>To create a ticket please <a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+</div>
+<div class="row row-flex">
+    {% for ticket in tickets %}
+    <div class="col-10">
+        <div>
+            <h6>{{ ticket.topic }}</h6>
+            <h6>{{ ticket.title }}</h6>
+            <p>{{ ticket.description }}</p>
+            <p>{{ ticket.created_by }} on {{ ticket.date }}</p>
+            <div>
+                <p>{{ ticket.status }}</p>
+                <div>
+                    <button class="btn btn-primary">Upvote</button>
+                    {{ ticket.upvotes }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
