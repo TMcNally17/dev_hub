@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ profile_form | as_bootstrap }}
+    <button type="submit" class="btn btn-primary">Edit Profile</button>
+</form>
+
+{% endblock %}

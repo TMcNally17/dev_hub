@@ -1,4 +1,6 @@
-{% extends 'base.html' %}{% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 
 <h1>{{ user }}'s Profile</h1>
 
@@ -6,8 +8,11 @@
 
 <p>{{ user.profile.forum_tag }}</p>
 
+<div style="background-image: url('{{ MEDIA_URL }}{{ user.profile.avatar }}')"></div>
 
-
+<a href="{% url 'edit_profile' %}">
+    <button class="btn btn-primary">Edit Profile</button>
+</a>
 
 {% if messages %}
 <div>

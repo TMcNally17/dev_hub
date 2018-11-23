@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from accounts.forms import LoginForm, UserRegistrationForm, ProfileForm
+from .forms import LoginForm, UserRegistrationForm, ProfileForm
 
 
 def login(request):
@@ -42,11 +42,9 @@ def register(request):
         
     if request.method == "POST":
         registration_form = UserRegistrationForm(request.POST)
-        profile_form = ProfileForm(request.POST)
         
-        if registration_form.is_valid() and profile_form.is_valid():
+        if registration_form.is_valid():
             registration_form.save()
-            profile_form.save()
             
             user = auth.authenticate(username=request.POST["username"],
                                      password=request.POST["password2"])
@@ -59,11 +57,26 @@ def register(request):
                 messages.error(request, "We are unable to register your account at this time. Please try again later.")
     else:
         registration_form = UserRegistrationForm()
-        profile_form = ProfileForm()
         
-    return render(request, "register.html", {"registration_form": registration_form, "profile_form": profile_form})
-        
+    return render(request, "register.html", {"registration_form": registration_form})
+    
 @login_required()
 def profile(request):
     
     return render(request, "profile.html")
+        
+@login_required()
+def edit_profile(request):
+ 
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, ("Your profile was successfully updated."))
+            return redirect(reverse("profile"))
+        else:
+            messages.error(request, ("We can't change your profile at this time. Try again later."))
+    else:
+        profile_form = ProfileForm(instance=request.user.profile)
+        
+    return render(request, "edit_profile.html", {"profile_form": profile_form})

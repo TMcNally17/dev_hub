@@ -14,12 +14,12 @@
     {% endfor %}
 </div>
 {% endif %}
-
-<form method="POST">
-    {% csrf_token %}
-    {{ registration_form | as_bootstrap }}
-    {{ profile_form | as_bootstrap }}
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+<div class="col-10">
+    <form method="POST">
+        {% csrf_token %}
+        {{ registration_form | as_bootstrap }}
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
 
 {% endblock %}
