@@ -80,6 +80,7 @@ BUG_TICKETS
             date
             status
             upvotes
+            create_by
             
     - Forms
     
