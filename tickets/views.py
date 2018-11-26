@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import TicketForm
@@ -27,4 +27,27 @@ def create_ticket(request):
         bug_ticket_form = TicketForm()
     
     return render(request, "ticket_form.html", {"bug_ticket_form": bug_ticket_form})
+    
+def edit_ticket(request, pk):
+    
+    if request.method == "POST":
         
+        bug_ticket_form = TicketForm(request.POST, instance=Ticket.objects.get(pk=pk))
+        
+        if bug_ticket_form.is_valid():
+            bug_ticket_form.save()
+            messages.success(request, "Bug Ticket was successfully edited.")
+            return redirect(reverse("tickets")) 
+    else:
+        bug_ticket_form = TicketForm(instance=Ticket.objects.get(pk=pk))
+    
+    return render(request, "edit_ticket_form.html", {"bug_ticket_form": bug_ticket_form})
+    
+def upvote(request, pk):
+    
+    ticket = get_object_or_404(Ticket, pk=pk)
+    
+    ticket.upvotes += 1
+    ticket.save()
+    
+    return redirect(reverse("tickets"))
