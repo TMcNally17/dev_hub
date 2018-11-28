@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Ticket
 
 
-class TestModels(TestCase):
+class Test_Models(TestCase):
     
     def setUp(self):
         self.user = User.objects.create_user(

@@ -11,6 +11,7 @@ def all_tickets(request):
     tickets = Ticket.objects.all()
     return render(request, "tickets.html", {"tickets": tickets})
     
+@login_required
 def create_ticket(request):
     
     if request.method == "POST":
@@ -28,7 +29,12 @@ def create_ticket(request):
     
     return render(request, "ticket_form.html", {"bug_ticket_form": bug_ticket_form})
     
+@login_required
 def edit_ticket(request, pk):
+    
+    ticket = Ticket.objects.get(pk=pk)
+    if request.user != ticket.created_by:
+        return redirect(reverse("tickets"))
     
     if request.method == "POST":
         
@@ -43,6 +49,7 @@ def edit_ticket(request, pk):
     
     return render(request, "edit_ticket_form.html", {"bug_ticket_form": bug_ticket_form})
     
+@login_required
 def upvote(request, pk):
     
     ticket = get_object_or_404(Ticket, pk=pk)

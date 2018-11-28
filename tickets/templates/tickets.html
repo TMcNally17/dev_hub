@@ -25,9 +25,11 @@
                 <p>{{ ticket.status }}</p>
                 <div>
                     {{ ticket.upvotes }}
+                    {% if user.is_authenticated %}
                     <a href="{% url 'upvote' ticket.pk %}">
                         <button class="btn btn-primary">Upvote</button>
                     </a>
+                    {% endif %}
                 </div>
             </div>
             {% if user == ticket.created_by or user.is_staff %}
