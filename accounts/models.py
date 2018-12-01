@@ -7,7 +7,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     forum_tag = models.CharField(max_length=200, blank=True)
-    avatar = models.ImageField(upload_to="avatars", blank=True)
+    avatar = models.ImageField(upload_to="avatars", blank=True, null=True)
     
     def __str__(self):
         return self.user.username

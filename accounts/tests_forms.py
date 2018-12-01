@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from .forms import LoginForm, UserRegistrationForm, ProfileForm
 
 
-class Test_Forms(TestCase):
+class TestUserForms(TestCase):
     
     # Test LoginForm
     

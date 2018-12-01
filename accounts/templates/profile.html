@@ -8,7 +8,7 @@
 
 <p>{{ user.profile.forum_tag }}</p>
 
-<div style="background-image: url('{{ MEDIA_URL }}{{ user.profile.avatar }}')"></div>
+<img style="width: 25%;" src="{{ user.profile.avatar.url }}"></img>
 
 <a href="{% url 'edit_profile' %}">
     <button class="btn btn-primary">Edit Profile</button>

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
 
-class Test_Views(TestCase):
+class TestViews(TestCase):
     
     def setUp(self):
         self.user = User.objects.create_user(
