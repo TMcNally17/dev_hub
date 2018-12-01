@@ -7,7 +7,6 @@ from .models import Ticket
 
 def all_tickets(request):
     
-    
     tickets = Ticket.objects.all()
     return render(request, "tickets.html", {"tickets": tickets})
     

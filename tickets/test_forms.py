@@ -3,7 +3,7 @@ from .forms import TicketForm
 from .models import Ticket
 
 
-class TestForm(TestCase):
+class TestTicketForm(TestCase):
     
     def test_create_ticket_form(self):
         

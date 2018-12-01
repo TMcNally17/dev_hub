@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from .models import Ticket
 
 
-class Test_Views(TestCase):
+class TestViews(TestCase):
     
     def setUp(self):
         self.user = User.objects.create_user(
