@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <p>Welcome to your Blog. Here you can read about what has been happening lately.</p>
+</div>
+
+<div class="row row-flex">
+    {% for blog in blog_posts %}
+    {% if forloop.counter|divisibleby:2 %}
+    <div class="row col-10">
+        <div class="col-6">
+            <h6>{{ blog.topic }}</h6>
+            <h6>{{ blog.title }}</h6>
+            <p>{{ blog.description }}</p>
+            <p>{{ blog.author }} on {{ blog.date }}</p>
+        </div>
+        <div class="col-6">
+            <img style="width: 75%;" src="{{ blog.image.url }}"></img>
+        </div>
+    </div>
+    {% else %}
+    <div class="row col-10">
+        <div class="col-6">
+            <img style="width: 75%;" src="{{ blog.image.url }}"></img>
+        </div>
+        <div class="col-6">
+            <h6>{{ blog.topic }}</h6>
+            <h6>{{ blog.title }}</h6>
+            <p>{{ blog.description }}</p>
+            <p>{{ blog.author }} on {{ blog.date }}</p>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
