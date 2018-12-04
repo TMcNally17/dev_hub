@@ -19,7 +19,7 @@ def create_ticket(request):
         
         if bug_ticket_form.is_valid():
             bug_ticket_form.save(commit=False)
-            bug_ticket_form.created_by = request.user
+            bug_ticket_form.created_by = request.user.username
             bug_ticket_form.save()
             messages.success(request, "Bug Ticket was successfully posted.")
             return redirect(reverse("tickets")) 

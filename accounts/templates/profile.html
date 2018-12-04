@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static from staticfiles %}
 {% block content %}
 
 <h1>{{ user }}'s Profile</h1>
@@ -8,7 +8,9 @@
 
 <p>{{ user.profile.forum_tag }}</p>
 
+{% if user.profile.avatar %}
 <img style="width: 25%;" src="{{ user.profile.avatar.url }}"></img>
+{% endif %}
 
 <a href="{% url 'edit_profile' %}">
     <button class="btn btn-primary">Edit Profile</button>
