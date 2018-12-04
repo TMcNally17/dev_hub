@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'accounts',
     'tickets',
     'blog',
+    'donations',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+STRIPE_PUBLISHABLE = os.environ.get("STRIPE_PUBLISHABLE")
+STRIPE_SECRET = os.environ.get("STRIPE_SECRET")
