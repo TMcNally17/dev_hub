@@ -8,7 +8,7 @@
     <form method="POST">
         {% csrf_token %}
         {{ bug_ticket_form | as_bootstrap }}
-        <button type="submit" class="btn btn-primary">Create Ticket</button>
+        <button type="submit" class="btn btn-primary">{{ context }}</button>
     </form>
 </div>
 

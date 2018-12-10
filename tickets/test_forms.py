@@ -1,16 +1,26 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
 from .forms import TicketForm
 from .models import Ticket
 
 
 class TestTicketForm(TestCase):
     
+    def setUp(self):
+        self.user = User.objects.create_user(
+                username="test_username",
+                password="test_password"
+            )
+            
+        self.client.force_login(self.user)
+    
     def test_create_ticket_form(self):
         
         ticket_form = TicketForm({
             "title": "test_title",
             "topic": "test_topic",
-            "description": "test_description"
+            "description": "test_description",
+            "author": self.user
         })
         ticket_form.save()
         
@@ -29,7 +39,8 @@ class TestTicketForm(TestCase):
         ticket_form = TicketForm({
             "title": "test_title",
             "topic": "test_topic",
-            "description": "test_description"
+            "description": "test_description",
+            "author": self.user
         })
         ticket_form.save()
         

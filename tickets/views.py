@@ -13,45 +13,51 @@ def all_tickets(request):
 @login_required
 def create_ticket(request):
     
+    context = "Create Ticket"
+    
     if request.method == "POST":
         
         bug_ticket_form = TicketForm(request.POST)
         
         if bug_ticket_form.is_valid():
-            bug_ticket_form.save(commit=False)
-            bug_ticket_form.created_by = request.user.username
-            bug_ticket_form.save()
+            ticket = bug_ticket_form.save()
+            ticket.created_by = request.user
+            ticket.save()
             messages.success(request, "Bug Ticket was successfully posted.")
+            
+            
             return redirect(reverse("tickets")) 
     else:
         bug_ticket_form = TicketForm()
     
-    return render(request, "ticket_form.html", {"bug_ticket_form": bug_ticket_form})
+    return render(request, "ticket_form.html", {"bug_ticket_form": bug_ticket_form, "context": context})
     
 @login_required
-def edit_ticket(request, pk):
+def edit_ticket(request, id):
     
-    ticket = Ticket.objects.get(pk=pk)
+    context = "Edit Ticket"
+    
+    ticket = Ticket.objects.get(id=id)
     if request.user != ticket.created_by:
         return redirect(reverse("tickets"))
     
     if request.method == "POST":
         
-        bug_ticket_form = TicketForm(request.POST, instance=Ticket.objects.get(pk=pk))
+        bug_ticket_form = TicketForm(request.POST, instance=Ticket.objects.get(id=id))
         
         if bug_ticket_form.is_valid():
             bug_ticket_form.save()
             messages.success(request, "Bug Ticket was successfully edited.")
             return redirect(reverse("tickets")) 
     else:
-        bug_ticket_form = TicketForm(instance=Ticket.objects.get(pk=pk))
+        bug_ticket_form = TicketForm(instance=Ticket.objects.get(id=id))
     
-    return render(request, "edit_ticket_form.html", {"bug_ticket_form": bug_ticket_form})
+    return render(request, "ticket_form.html", {"bug_ticket_form": bug_ticket_form, "context": context})
     
 @login_required
-def upvote(request, pk):
+def upvote(request, id):
     
-    ticket = get_object_or_404(Ticket, pk=pk)
+    ticket = get_object_or_404(Ticket, id=id)
     
     ticket.upvotes += 1
     ticket.save()

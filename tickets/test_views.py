@@ -36,7 +36,7 @@ class TestViews(TestCase):
         
         page = self.client.get("/tickets/edit/1")
         self.assertEqual(page.status_code, 200)
-        self.assertTemplateUsed(page, "edit_ticket_form.html")
+        self.assertTemplateUsed(page, "ticket_form.html")
         
     def test_get_upvote(self):
         
