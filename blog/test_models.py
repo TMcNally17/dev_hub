@@ -17,8 +17,8 @@ class TestBlog(TestCase):
             title = "test_title",
             topic = "test_topic",
             description = "test_description",
-            image = "",
-            author = self.user
+            author = self.user,
+            image = "test_image"
         )
         
         blog.save()
