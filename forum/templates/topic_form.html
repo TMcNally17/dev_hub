@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% load bootstrap_tags %}
+
+{% block content %}
+
+<div class="col-10">
+    <form method="POST">
+        {% csrf_token %}
+        {{ topic_form | as_bootstrap }}
+        <button type="submit" class="btn btn-primary">{{ context }}</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -9,6 +9,7 @@ class Category(models.Model):
     description = models.TextField(max_length=250, blank=False, null=False)
     date = models.DateTimeField(auto_now_add=True)
     posts = models.IntegerField(default=0, blank=False, null=False)
+    image_url = models.CharField(max_length=50, null=True)
     
     def __str__(self):
         
@@ -29,7 +30,7 @@ class Topic(models.Model):
     
     def __str__(self):
         
-        return "{0}, {1}, {2}".format(self.title, self.date, self.created_by.username)
+        return "{0}, {1}, {2}".format(self.title, self.date, self.created_by)
         
 class Post(models.Model):
     
@@ -44,4 +45,4 @@ class Post(models.Model):
     
     def __str__(self):
         
-        return "{0}, {1}, {2}".format(self.title, self.date, self.author.username)
+        return "{0}, {1}, {2}".format(self.title, self.date, self.author)

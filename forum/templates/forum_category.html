@@ -3,6 +3,16 @@
 {% block content %}
 
 
+<div>
+    <p>Create a Topic here</p>
+    {% if user.is_authenticated %}
+    <a href="{% url 'create_topic' id %}">
+        <button class="btn btn-primary">Create Topic</button>
+    </a>
+    {% else %}
+    <p>To create a topic please <a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+</div>
 <div class="row row-flex">
     {% for topic in topics %}
     <div class="col-10">
@@ -19,13 +29,13 @@
                 <p>{{ topic.description }}</p>
                 <p>{{ topic.date }}</p>
             </div>
+            {% if user == topic.created_by or user.is_staff %}
+            <a href="{% url 'edit_topic' topic.id %}">
+                <button class="btn btn-primary">Edit</button>
+            </a>
+            {% endif %}
         </div>
     </div>
-    {% empty %}
-    <h6>Be the first to post here</h6>
-    <a href="">
-        <button class="btn btn-primary">Reply</button>
-    </a>
     {% endfor %}
 </div>
 {% endblock %}

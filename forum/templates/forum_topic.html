@@ -2,6 +2,15 @@
 {% load static from staticfiles %}
 {% block content %}
 
+<div>
+    {% if user.is_authenticated or user.is_staff %}
+    <a href="{% url 'create_post' id %}">
+        <button class="btn btn-primary">Reply</button>
+    </a>
+    {% else %}
+    <p>To create a ticket please <a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+</div>
 
 <div class="row row-flex">
     {% for post in posts %}
@@ -15,24 +24,29 @@
             <div class="col-10">
                 <h6>{{ post.title }}</h6>
                 <p>{{ post.description }}</p>
-                <p>{{ post.author.forum_tag }}</p>
-                <p>{{ post.author.username }} - {{ post.date }}</p>
+                <p>{{ post.author.profile.forum_tag }}</p>
+                <p>{{ post.author }} - {{ post.date }}</p>
             </div>
             <div>
                 {{ post.upvotes }}
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated %} 
                 <a href="{% url 'upvote' post.id %}">
                     <button class="btn btn-primary">Upvote</button>
                 </a>
                 {% endif %}
             </div>
+            {% if user == post.author or user.is_staff %}
+            <a href="{% url 'edit_post' post.id %}">
+                <button class="btn btn-primary">Edit</button>
+            </a>
+            {% endif %}
         </div>
     </div>
     {% empty %}
-    <h6>Be the first to post here</h6>
-    <a href="">
-        <button class="btn btn-primary">Reply</button>
-    </a>
+    <div class="row">
+        <h6>Be the first to post here</h6>
+    </div>
+    
     {% endfor %}
 </div>
 {% endblock %}
