@@ -23,13 +23,9 @@ class Blog(models.Model):
         
         if Topic.objects.filter(title=self.title).exists():
             topic = Topic.objects.get(title=self.title)
-            Topic.objects.update(
-                id = topic.id,
+            Topic.objects.filter(id=topic.id).update(
                 title = self.title,
-                description = self.description,
-                image = "",
-                created_by = self.author,
-                category = Category(pk=3))
+                description = self.description)
         else:
             Topic.objects.create(
                 title = self.title,
