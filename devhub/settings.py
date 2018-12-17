@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'blog',
     'donations',
     'forum',
+    'graphs',
 ]
 
 MIDDLEWARE = [

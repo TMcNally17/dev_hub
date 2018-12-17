@@ -26,5 +26,6 @@ urlpatterns = [
     path('blog/', include("blog.urls")),
     path('donations/', include("donations.urls")),
     path('forum/', include("forum.urls")),
+    path('graphs/', include("graphs.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
