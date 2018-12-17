@@ -4,9 +4,7 @@
 
 {% block head_js %}
 <script type="text/javascript">
-    //<![CDATA[
-    Stripe.publishableKey = '{{ publishable }}';
-    //]]>
+    Stripe.setPublishableKey = '{{ publishable }}';
 </script>
 <script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
 {% endblock %}

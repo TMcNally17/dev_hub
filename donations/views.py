@@ -25,7 +25,7 @@ def make_donation(request):
                     amount = int(donation_amount * 100),
                     currency = "GBP",
                     description = request.user.email,
-                    source = payment_form.cleaned_data["stripe_id"],
+                    source = request.POST["stripe_id"],
                 )
             except stripe.error.CardError:
                 messages.error(request, "Your card was declined.")
