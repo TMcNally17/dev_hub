@@ -5,11 +5,16 @@ from django.shortcuts import get_object_or_404
 
 class TestViews(TestCase):
     
+    # Test User
     def setUp(self):
         self.user = User.objects.create_user(
                 username="test_username",
                 password="test_password"
             )
+    
+    """
+    Test correct pages are returned using right templates
+    """
     
     def test_get_register_page(self):
         
