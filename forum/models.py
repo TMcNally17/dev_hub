@@ -26,7 +26,7 @@ class Topic(models.Model):
     views = models.IntegerField(default=0)
     created_by = models.ForeignKey(User, models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
-    locked = models.BooleanField(default="False")
+    locked = models.BooleanField(default=False)
     
     def __str__(self):
         
@@ -41,7 +41,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, models.SET_NULL, null=True)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True, related_name="topic")
     upvotes = models.IntegerField(default=0, blank=False, null=False)
-    locked = models.BooleanField(default="False")
+    locked = models.BooleanField(default=False)
     
     def __str__(self):
         

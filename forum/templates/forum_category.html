@@ -27,6 +27,7 @@
                     <h6>{{ topic.title }}</h6>
                 </a>
                 <p>{{ topic.description }}</p>
+                <p>Posts: {{ topic.posts }}</p>
                 <p>{{ topic.date }}</p>
             </div>
             {% if user == topic.created_by or user.is_staff %}

@@ -30,7 +30,7 @@
             <div>
                 {{ post.upvotes }}
                 {% if user.is_authenticated %} 
-                <a href="{% url 'upvote' post.id %}">
+                <a href="{% url 'upvote_post' post.id %}">
                     <button class="btn btn-primary">Upvote</button>
                 </a>
                 {% endif %}

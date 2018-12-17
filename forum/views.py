@@ -9,6 +9,18 @@ def forum(request):
     
     categories = Category.objects.all()
     
+    for category in categories:
+        topics = Topic.objects.filter(category=category.id)
+        total_posts = 0
+        for topic in topics:
+            posts = Post.objects.filter(topic=topic.id).count()
+            topic.posts = posts
+            topic.save()
+            total_posts += posts
+        
+        category.posts = total_posts
+        category.save()
+    
     return render(request, "forum_home.html", {"categories": categories})
     
 def category(request, id):
@@ -51,19 +63,19 @@ def edit_topic(request, id):
     context = "Edit Topic"
     
     topic = Topic.objects.get(id=id)
-    if request.user != topic.created_by:
-        return redirect(reverse("category", kwargs={"id": topic.category}))
-    
-    if request.method == "POST":
+    if request.user == topic.created_by:
         
-        topic_form = TopicForm(request.POST, instance=Topic.objects.get(id=id))
-        
-        if topic_form.is_valid():
-            topic_form.save()
-            messages.success(request, "Topic was successfully edited.")
-            return redirect(reverse("category", kwargs={"id": topic.category})) 
+        if request.method == "POST":
+            topic_form = TopicForm(request.POST, instance=Topic.objects.get(id=id))
+            
+            if topic_form.is_valid():
+                topic_form.save()
+                messages.success(request, "Topic was successfully edited.")
+                return redirect(reverse("category", kwargs={"id": topic.category})) 
+        else:
+            topic_form = TopicForm(instance=Topic.objects.get(id=id))
     else:
-        topic_form = TopicForm(instance=Topic.objects.get(id=id))
+        return redirect(reverse("category", kwargs={"id": topic.category}))
     
     return render(request, "topic_form.html", {"topic_form": topic_form, "context": context})
     
@@ -95,29 +107,28 @@ def edit_post(request, id):
     context = "Edit Post"
     
     post = Post.objects.get(id=id)
-    if request.user != post.author:
-        return redirect(reverse("topic", kwargs={"id": post.topic}))
+    if request.user == post.author:
     
-    if request.method == "POST":
-        
-        post_form = PostForm(request.POST, instance=Post.objects.get(id=id))
-        
-        if post_form.is_valid():
-            post_form.save()
-            messages.success(request, "Post was successfully edited.")
-            return redirect(reverse("category", kwargs={"id": post.topic})) 
+        if request.method == "POST":
+            post_form = PostForm(request.POST, instance=Post.objects.get(id=id))
+            
+            if post_form.is_valid():
+                post_form.save()
+                messages.success(request, "Post was successfully edited.")
+                return redirect(reverse("category", kwargs={"id": post.topic})) 
+        else:
+            post_form = TopicForm(instance=Post.objects.get(id=id))
     else:
-        post_form = TopicForm(instance=Post.objects.get(id=id))
+         return redirect(reverse("topic", kwargs={"id": post.topic}))
     
     return render(request, "post_form.html", {"post_form": post_form, "context": context})
     
 @login_required
-def upvote(request, id):
+def upvote_post(request, id):
     
     post = get_object_or_404(Post, id=id)
     
     post.upvotes += 1
     post.save()
     
-    return redirect(reverse("topic", kwargs={"id": post.topic}))
-    
+    return redirect(reverse("topic", kwargs={"id": post.topic.id}))
