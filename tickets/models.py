@@ -31,18 +31,13 @@ class Ticket(models.Model):
         
         if Topic.objects.filter(title=self.title).exists():
             topic = Topic.objects.get(title=self.title)
-            Topic.objects.update(
-                id = topic.id,
+            Topic.objects.filter(id=topic.id).update(
                 title = self.title,
-                description = self.description,
-                image = "",
-                created_by = self.created_by,
-                category = Category(pk=2))
+                description = self.description)
         else:
             Topic.objects.create(
                 title = self.title,
                 description = self.description,
-                image = "",
                 created_by = self.created_by,
                 category = Category(pk=2))
             

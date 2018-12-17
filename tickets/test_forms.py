@@ -6,7 +6,9 @@ from .models import Ticket
 
 class TestTicketForm(TestCase):
     
+    # Test User
     def setUp(self):
+        
         self.user = User.objects.create_user(
                 username="test_username",
                 password="test_password"
@@ -16,6 +18,7 @@ class TestTicketForm(TestCase):
     
     def test_create_ticket_form(self):
         
+        # Test ticket form is valid with correct inputs
         ticket_form = TicketForm({
             "title": "test_title",
             "topic": "test_topic",
@@ -29,6 +32,7 @@ class TestTicketForm(TestCase):
         
     def test_create_ticket_form_with_missing_input(self):
         
+        # Test ticket form is not valid with missing inputs
         ticket_form = TicketForm({ "title": "test" })
         
         self.assertFalse(ticket_form.is_valid())
@@ -36,6 +40,7 @@ class TestTicketForm(TestCase):
         
     def test_edit_ticket_form(self):
         
+        # Test ticket form is updated with different data
         ticket_form = TicketForm({
             "title": "test_title",
             "topic": "test_topic",
@@ -44,7 +49,7 @@ class TestTicketForm(TestCase):
         })
         ticket_form.save()
         
-        ticket = Ticket.objects.get(pk=1)
+        ticket = Ticket.objects.get(id=1)
         ticket.title = "test_edit"
         ticket.save()
         

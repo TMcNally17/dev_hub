@@ -55,7 +55,7 @@ def edit_ticket(request, id):
     return render(request, "ticket_form.html", {"bug_ticket_form": bug_ticket_form, "context": context})
     
 @login_required
-def upvote(request, id):
+def upvote_ticket(request, id):
     
     ticket = get_object_or_404(Ticket, id=id)
     

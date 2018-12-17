@@ -6,13 +6,19 @@ from .models import Ticket
 
 class TestViews(TestCase):
     
+    # Test User
     def setUp(self):
+        
         self.user = User.objects.create_user(
                 username="test_username",
                 password="test_password"
             )
             
         self.client.force_login(self.user)
+    
+    """
+    Test correct pages are returned using right templates
+    """
     
     def test_get_tickets_page(self):
         
