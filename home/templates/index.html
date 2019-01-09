@@ -1,7 +1,70 @@
 {% extends 'base.html' %}
+{% load static from staticfiles %}
 
 {% block content %}
+<article class="pale-bg">
+    <div class="row">
+        <a class="col-lg-4 col-sm-12 about-card" href="{% url 'tickets' %}">
+            <div>
+                <h4 class="about-title">Bug Tickets</h4>
+                <p class="about-text">
+                    Have users provide you feedback about bugs to imporve 
+                    productivty and fixes.
+                </p>
+            </div>
+        </a>
+        <a class="col-lg-4 col-sm-12 about-card" href="{% url 'forum' %}">
+            <div>
+                <h4 class="about-title">Forum</h4>
+                <p class="about-text">Let users discuss bugs, improvements
+                and provide feedback on features.</p>
+            </div>
+        </a>
+        <a class="col-lg-4 col-sm-12 about-card" href="{% url 'graphs' %}">
+            <div>
+                <h4 class="about-title">Graphs</h4>
+                <p class="about-text">Show what you have a achieved in clear
+                graphs about your project.</p>
+            </div>
+        </a>
+    </div>
+</article>
 
-<h1>Home</h1>
+<article class="green-bg">
+    <img class="header-img-sm" src="{% static 'images/blog_header.jpg' %}"></img>
+    <section class="container">
+        <img class="header-img-lg" src="{% static 'images/blog_header_1.jpg' %}"></img>
+        <div class="row justify-content-center content">
+            <div class="col-lg-8 col-sm-12 blog-text"
+                <p>Let users see the latest updates from the project by 
+                blogging about it. Users can discuss the blog in the forum.</p>
+            </div>
+            <div class="col-lg-8 col-sm-12">
+                <h4 class="blog-title">{{ blog.title }}</h4>
+                <h5>Topic: {{ blog.topic }}</h5>
+                <p class="blog-text">{{ blog.description }}</p>
+                <h6>Posted by {{ blog.author }} on {{ blog.date }}</h6>
+            </div>
+        </div>
+    </section>
+</article>
+
+<section class="dark-bg">
+    <div class="container content">
+        <p class="footer">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+            sed diam nonummy nibh euismod tincidunt ut laoreet dolore
+            magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+            ut aliquip ex ea commodo consequat. Duis autem vel eum iriure
+            dolor in hendrerit in vulputate velit esse molestie consequat,
+            vel illum dolore eu feugiat nulla facilisis at vero eros et
+            accumsan et iusto odio dignissim qui blandit praesent luptatum
+            zzril delenit augue duis dolore te feugait nulla facilisi.
+        </p>
+    </div>
+</section>
+
+
 
 {% endblock %}
