@@ -1,45 +1,70 @@
 from django.shortcuts import render, reverse, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 from django.contrib import messages
 from django.conf import settings
 from .models import Donation
-from .forms import DonationForm, PaymentForm
 import stripe
 
 
 stripe.api_key = settings.STRIPE_SECRET
 
+def donations(request):
+    
+    target = 500
+    donation_width = donation_target(target)
+    total_donations = donation_amount()
+    
+    
+    return render(request, "donation.html", {"publishable": settings.STRIPE_PUBLISHABLE, 
+                                            "total_donations": total_donations, 
+                                            "donation_width": donation_width,
+                                            "target": target})
+
 @login_required()
-def make_donation(request):
+def donate(request, amount):
     
     if request.method=="POST":
-        donation_form = DonationForm(request.POST, instance=request.user)
-        payment_form = PaymentForm(request.POST)
-        
-        if donation_form.is_valid() and payment_form.is_valid():
-            donation_form.save(commit=False)
-            donation_amount = donation_form.cleaned_data["donation_amount"]
             
-            try:
-                customer = stripe.Charge.create(
-                    amount = int(donation_amount * 100),
-                    currency = "GBP",
-                    description = request.user.email,
-                    source = request.POST["stripe_id"],
+        try:
+            donation = stripe.Charge.create(
+                source = request.POST["stripeToken"],
+                amount = amount,
+                currency = "GBP",
+                description = "Donation from {0}".format(request.user.email)
+            )
+        except stripe.error.CardError:
+            messages.error(request, "Your card was declined.")
+            
+        if donation.paid:
+            donation = Donation(
+                first_name = request.user.first_name,
+                last_name = request.user.last_name,
+                email = request.user.email,
+                donation_amount = amount
                 )
-            except stripe.error.CardError:
-                messages.error(request, "Your card was declined.")
-                
-            if customer.paid:
-                donation_form.save()
-                messages.success(request, "Donation successful. Thank You")
-                return redirect(reverse('index'))
-            else:
-                messages.error(request, "Unable to take payment.")
+            donation.save()
+            messages.success(request, "Donation successful. Thank You")
+            return redirect(reverse('donations'))
         else:
-            messages.error(request, "We were unable to take a payment with that card.")
-    else:
-        donation_form = DonationForm(instance=request.user)
-        payment_form = PaymentForm()
+            messages.error(request, "Unable to take payment.")
         
-    return render(request, "donation.html", {'donation_form': donation_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
+    return render(request, "donation.html", {'publishable': settings.STRIPE_PUBLISHABLE})
+    
+def donation_amount():
+    
+    donations =  Donation.objects.all().aggregate(amount=Sum('donation_amount'))
+    total_donations = int(donations["amount"] / 100)
+    
+    return total_donations
+    
+def donation_target(target):
+    
+    total_donations = donation_amount()
+    
+    total_percentage = int(total_donations / target * 100)
+    
+    return total_percentage
+    
+    
+    
