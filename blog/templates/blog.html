@@ -17,13 +17,13 @@
             <p>{{ blog.author }} on {{ blog.date }}</p>
         </div>
         <div class="col-6">
-            <img style="width: 75%;" src="{% static 'images/blog/' %}{{blog.image}}"></img>
+            <img style="width: 75%;" src="{% static 'images/' %}{{blog.image}}"></img>
         </div>
     </div>
     {% else %}
     <div class="row col-10">
         <div class="col-6">
-            <img style="width: 75%;" src="{% static 'images/blog/' %}{{blog.image}}"></img>
+            <img style="width: 75%;" src="{% static 'images/' %}{{blog.image}}"></img>
         </div>
         <div class="col-6">
             <h6>{{ blog.topic }}</h6>

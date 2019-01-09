@@ -13,7 +13,7 @@ class Ticket(models.Model):
         (STARTED, "Started"),
         (DONE, "Done"))
     
-    title = models.CharField(max_length=150, blank=False, null=False)
+    title = models.CharField(unique=True, max_length=150, blank=False, null=False)
     topic = models.CharField(max_length=150, blank=False, null=False)
     description = models.TextField(max_length=250, blank=False, null=False)
     date = models.DateTimeField(auto_now_add=True)

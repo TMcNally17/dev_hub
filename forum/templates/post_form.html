@@ -5,6 +5,21 @@
 {% block content %}
 
 <div class="col-10">
+    <div class="row">
+        {% if topic.image %}
+        <div class="col-2">
+            <img style="width: 100%;" src="{{ topic.image.url }}"></img>
+        </div>
+        {% endif %}
+        <div class="col-10">
+            <h6>{{ topic.title }}</h6>
+            <p>{{ topic.description }}</p>
+            <p>{{ topic.date }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="col-10">
     <form method="POST">
         {% csrf_token %}
         {{ post_form | as_bootstrap }}

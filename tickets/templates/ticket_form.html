@@ -3,13 +3,18 @@
 {% load bootstrap_tags %}
 
 {% block content %}
+<article>
+    <section class="container">
+        <div class="col-10">
+            <form method="POST">
+                {% csrf_token %}
+                {{ bug_ticket_form | as_bootstrap }}
+                <button type="submit" class="btn btn-primary">{{ context }}</button>
+            </form>
+        </div>
+    </section>
+</article>
 
-<div class="col-10">
-    <form method="POST">
-        {% csrf_token %}
-        {{ bug_ticket_form | as_bootstrap }}
-        <button type="submit" class="btn btn-primary">{{ context }}</button>
-    </form>
-</div>
+
 
 {% endblock %}

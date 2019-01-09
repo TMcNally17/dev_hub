@@ -31,9 +31,10 @@ def category(request, id):
     
 def topic(request, id):
     
+    topic = Topic.objects.get(id=id)
     posts = Post.objects.filter(topic=id)
     
-    return render(request, "forum_topic.html", {"posts": posts, "id":id})
+    return render(request, "forum_topic.html", {"posts": posts, "topic": topic, "id":id})
     
 @login_required
 def create_topic(request, id):
@@ -83,6 +84,7 @@ def edit_topic(request, id):
 def create_post(request, id):
     
     context = "Create Post"
+    topic = Topic.objects.get(id=id)
     
     if request.method == "POST":
         
@@ -99,12 +101,13 @@ def create_post(request, id):
     else:
         post_form = PostForm()
             
-    return render(request, "post_form.html", {"post_form": post_form, "context": context})
+    return render(request, "post_form.html", {"post_form": post_form, "topic": topic, "context": context})
     
 @login_required
 def edit_post(request, id):
     
     context = "Edit Post"
+    topic = Topic.objects.get(id=id)
     
     post = Post.objects.get(id=id)
     if request.user == post.author:
@@ -121,7 +124,7 @@ def edit_post(request, id):
     else:
          return redirect(reverse("topic", kwargs={"id": post.topic}))
     
-    return render(request, "post_form.html", {"post_form": post_form, "context": context})
+    return render(request, "post_form.html", {"post_form": post_form, "topic": topic, "context": context})
     
 @login_required
 def upvote_post(request, id):
