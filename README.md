@@ -21,9 +21,9 @@
     - Status Updates
     - Upvotes
 
-- Upcoming Features - Donations 
+- Upcoming Features
 
-- Developer Blog
+- Blog
 
 - Member Forum
 

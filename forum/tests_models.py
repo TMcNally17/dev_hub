@@ -48,14 +48,14 @@ class TestForum(TestCase):
         
         # Test to create topic to check defaults and date work
         topic = Topic(
-            title = "test_topic",
+            title = "test_topic_1",
             description = "test_description",
             image = "test_image",
             category = Category(pk=1),
             created_by = self.user)
         topic.save()
         
-        self.assertEqual(topic.title, "test_topic")
+        self.assertEqual(topic.title, "test_topic_1")
         self.assertFalse(topic.locked)
         
     def test_create_post(self):
