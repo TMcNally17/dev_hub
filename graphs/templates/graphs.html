@@ -6,8 +6,12 @@
 
 <div id="status_chart"></div>
 
+<div id="donation_chart"></div>
+
 <script>
   Highcharts.chart('upvote_chart', {{ upvote_chart | safe }});
   Highcharts.chart('status_chart', {{ status_chart | safe }});
+  Highcharts.chart('donation_chart', {{ donation_chart | safe }});
+  
 </script>
 {% endblock %}
