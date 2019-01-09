@@ -1,3 +1,128 @@
-h1 {
-    color: blue;
+.content {
+    padding: 2rem 0;
 }
+
+.pale-bg {
+    background-color: #DADFE5;
+}
+
+.dark-bg {
+    background-color: #39393A;
+}
+
+.green-bg {
+    background-color: #A5C1B7;
+}
+
+.darkgreen-bg {
+    background-color: #A6B990;
+}
+
+.blue-bg {
+    background-color: #628193;
+}
+
+.main-header {
+    height: 350px;
+    margin-bottom: 0;
+    color: #FFF;
+    text-align: center;
+}
+
+.header-title {
+    padding: 2rem 0;
+}
+
+.footer {
+    color: #FFF;
+}
+
+.about-card {
+    height: 150px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    color: #39393A;
+}
+
+.about-card:hover {
+    color: #39393A;
+    text-decoration: none;
+}
+
+.about-title {
+    padding: 1.25rem 0;
+}
+
+.about-text {
+    display: none;
+}
+
+.active {
+    display: block;
+    padding: 1rem 0;
+}
+
+.blog-img {
+    width: 75%;
+}
+
+.header-img-sm {
+        width: 100%;
+    }
+    
+.header-img-lg {
+    display: none;
+}
+
+.blog-title {
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.blog-text {
+    padding: 1rem 1rem;
+    text-align: center;
+}
+
+
+
+#donation_progress {
+    width: 100%;
+}
+
+#donations {
+    width: 1%;
+    height: 30px;
+    text-align: center;
+    color: #000;
+}
+
+@media (min-width: 768px) {
+    
+    .about-card {
+        height: 175px;
+    }
+        
+}
+
+@media (min-width: 992px) {
+    
+    .header-img-sm {
+        display: none;
+    }
+        
+    .header-img-lg {
+        display: block;
+        width: 100%;
+    }
+    
+    .about-card {
+        height: 200px;
+        padding: 3rem 1rem;
+    }
+    
+    .about-title {
+        padding: 2.5rem 0;
+    }
+}
+
