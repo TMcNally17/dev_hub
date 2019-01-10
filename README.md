@@ -1,5 +1,7 @@
 # Full Stack Django Project - Developer Hub
 
+[![Build Status](https://travis-ci.org/TMcNally17/dev_hub.svg?branch=master)](https://travis-ci.org/TMcNally17/dev_hub)
+
 ### Features
 
 - Ticket System
