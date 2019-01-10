@@ -1,0 +1,1 @@
+web: gunicorn full-stack-django.wsgi:application
