@@ -32,9 +32,7 @@ else:
 if development:
     DEBUG = development
 
-ALLOWED_HOSTS = [os.environ.get("C9_HOSTNAME"),
-                "https://dev-hub-project.herokuapp.com"
-                ]
+ALLOWED_HOSTS = [os.environ.get("C9_HOSTNAME"), "dev-hub-project.herokuapp.com"]
 
 
 # Application definition
