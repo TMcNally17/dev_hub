@@ -1,1 +1,1 @@
-web: gunicorn full-stack-django.wsgi:application
+web: gunicorn devhub.wsgi:application
