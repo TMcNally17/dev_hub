@@ -4,20 +4,26 @@ $( document ).ready(function() {
         .mouseenter(function() {
             $(".about-title", this).animate({
             	padding: 0            
-            }, 500);
+            }, 400);
             $(".about-text", this).animate({
             	height: "toggle"              
-            }, 500);
+            }, 400);
             $(this).addClass("darkgreen-bg")
         })
         .mouseleave(function() {
             $(".about-title", this).animate({
-            	padding: "2.5rem 0"            
-            }, 500);
+            	padding: "2rem 0"            
+            }, 400);
             $(".about-text", this).animate({
             	height: "toggle"              
-            }, 500);
+            }, 400);
             $(this).removeClass("darkgreen-bg")
         });
+        
+   
+    $("#donations").animate({
+        width : "{{ donation_width }}%"
+    }, 1500);
+    
     
 });

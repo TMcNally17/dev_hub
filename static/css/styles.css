@@ -1,7 +1,6 @@
-.content {
-    padding: 2rem 0;
+body {
+    background-color: #DADFE5;
 }
-
 .pale-bg {
     background-color: #DADFE5;
 }
@@ -22,6 +21,45 @@
     background-color: #628193;
 }
 
+a {
+    color: #39393A;
+}
+
+a:hover {
+    color: #628193;
+    text-decoration: none;
+}
+
+.content {
+    padding: 2rem 0;
+}
+
+.btn-custom {
+    padding: 0.5rem 2rem;
+    color: #FFF;
+    font-weight: 600;
+}
+
+.btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem #628193;
+}
+
+.btn:hover {
+    background-color: #39393A;
+    color: #FFF;
+}
+
+.upvote {
+    margin-left: 0.5rem;
+    font-size: 1.5rem;
+    color: #FFF;
+}
+
+.upvote:hover {
+    color: #39393A;
+}
+
 .main-header {
     height: 350px;
     margin-bottom: 0;
@@ -33,7 +71,8 @@
     padding: 2rem 0;
 }
 
-.footer {
+.footer,
+.footer-text {
     color: #FFF;
 }
 
@@ -57,11 +96,6 @@
     display: none;
 }
 
-.active {
-    display: block;
-    padding: 1rem 0;
-}
-
 .blog-img {
     width: 75%;
 }
@@ -74,17 +108,36 @@
     display: none;
 }
 
-.blog-title {
-    padding-bottom: 1rem;
+.blog-title,
+.ticket-title {
+    padding: 1rem 0;
     text-align: center;
 }
 
-.blog-text {
+.footer-text,
+.content-text {
     padding: 1rem 1rem;
     text-align: center;
 }
 
+.ticket {
+    margin: 0.25rem 0;
+    border: solid 2px #39393A;
+    border-radius: 0.5rem;
+    color: #FFF;
+}
 
+.forum-img {
+    width: 75%;
+    margin-bottom: 1rem;
+}
+
+#id_image {
+    background-color: #DADFE5;
+    border: none;
+    padding: 0.5rem 2rem;
+    color: #39393A;
+}
 
 #donation_progress {
     width: 100%;
@@ -97,12 +150,19 @@
     color: #000;
 }
 
+@media (min-width: 576px) {
+
+    .category-img {
+        width: 100%;
+    }
+    
+}
+
 @media (min-width: 768px) {
     
     .about-card {
         height: 175px;
     }
-        
 }
 
 @media (min-width: 992px) {
