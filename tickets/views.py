@@ -38,19 +38,20 @@ def edit_ticket(request, id):
     context = "Edit Ticket"
     
     ticket = Ticket.objects.get(id=id)
-    if request.user != ticket.created_by:
-        return redirect(reverse("tickets"))
+    if request.user == ticket.created_by or request.user.is_staff():
     
-    if request.method == "POST":
-        
-        bug_ticket_form = TicketForm(request.POST, instance=Ticket.objects.get(id=id))
-        
-        if bug_ticket_form.is_valid():
-            bug_ticket_form.save()
-            messages.success(request, "Bug Ticket was successfully edited.")
-            return redirect(reverse("tickets")) 
+        if request.method == "POST":
+            
+            bug_ticket_form = TicketForm(request.POST, instance=Ticket.objects.get(id=id))
+            
+            if bug_ticket_form.is_valid():
+                bug_ticket_form.save()
+                messages.success(request, "Bug Ticket was successfully edited.")
+                return redirect(reverse("tickets")) 
+        else:
+            bug_ticket_form = TicketForm(instance=Ticket.objects.get(id=id))
     else:
-        bug_ticket_form = TicketForm(instance=Ticket.objects.get(id=id))
+        return redirect(reverse("tickets"))
     
     return render(request, "ticket_form.html", {"bug_ticket_form": bug_ticket_form, "context": context})
     

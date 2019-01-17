@@ -2,56 +2,89 @@
 {% load static from staticfiles %}
 {% block content %}
 
-<article class="">
+<article class="pale-bg">
     <section class="container">
-        <div>
-            <p>
+        <div class="content">
+            <h4 class="header-title">Bug Tickets</h4>
+            <p class="content-text">
                 Keep users updated on the progress
                 of Bug Tickets with statuses and users can let you know
                 how many of them have the same bug with upvotes.
             </p>
-            <p>Create a ticket here for any bugs you have found and we will fix them,
-            check back to see if the has been updated.</p>
+            <p class="content-text">
+                Create a ticket here for any bugs you have found and we will fix them,
+                check back to see if the has been updated.
+            </p>
             {% if user.is_authenticated %}
-            <a href="{% url 'create_ticket' %}">
-                <button class="btn btn-primary">Create Ticket</button>
-            </a>
+            <div class="row justify-content-center">
+                <a href="{% url 'create_ticket' %}">
+                    <button class="btn btn-custom darkgreen-bg">Create Ticket</button>
+                </a>
+            </div>
             {% else %}
-            <p>To create a ticket please <a href="{% url 'login' %}">Login</a></p>
+            <p>
+                To create a ticket please <strong><a href="{% url 'login' %}">Login</a></strong>
+            </p>
             {% endif %}
         </div>
-        <div class="row">
+    </section>
+</article>
+
+<article class="pale-bg">
+    <section class="container">
+        <div class="row content">
             {% for ticket in tickets %}
-            <div class="col-10">
-                <div class="row">
-                    <div class="col-8">
-                        <h6>{{ ticket.topic }}</h6>
-                        <h6>{{ ticket.title }}</h6>
-                        <p>{{ ticket.description }}</p>
-                        <p>{{ ticket.created_by }} on {{ ticket.date }}</p>
+            <div class="row col-12 ticket blue-bg">
+                <div class="col-lg-8 col-sm-12">
+                    <h5 class="ticket-title">{{ ticket.title }}</h5>
+                    <h6>Topic: {{ ticket.topic }}</h6>
+                    <p class="content-text">{{ ticket.description }}</p>
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <p class="ticket-footer">Posted by {{ ticket.created_by }}</p>
+                            <p class="ticket-footer">{{ ticket.date }}</p>
+                        </div>
+                        <div>
+                            {% if user == ticket.created_by or user.is_staff %}
+                            <a class="" href="{% url 'edit_ticket' ticket.id %}">
+                                <button class="btn btn-custom darkgreen-bg">Edit</button>
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="col-2">
-                        {{ ticket.upvotes }}
-                        {% if user.is_authenticated %}
-                        <a href="{% url 'upvote_ticket' ticket.id %}">
-                            <button class="btn btn-primary">Upvote</button>
-                        </a>
-                        {% endif %}
+                    
+                </div>
+                <div class="row col-lg-4 col-sm-12 align-items-center">
+                    <div class="col-6">
+                        <p>Status:</p>
+                        <p><strong>{{ ticket.status }}</strong></p>
                     </div>
-                    <div class="col-2">
-                        <p>{{ ticket.status }}</p>
-                        {% if user == ticket.created_by or user.is_staff %}
-                        <a href="{% url 'edit_ticket' ticket.id %}">
-                            <button class="btn btn-primary">Edit</button>
-                        </a>
-                        {% endif %}
+                    <div class="col-6">
+                        <div class="column justify-content-center">
+                            <p>
+                                Upvote 
+                                {% if user.is_authenticated %}
+                                <a href="{% url 'upvote_ticket' ticket.id %}">
+                                    <i class="fas fa-chevron-up upvote"></i>
+                                </a>
+                                {% endif %}
+                            </p>
+                            <p>
+                                <strong>{{ ticket.upvotes }}</strong>
+                            </p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            {% empty %}
+            <div class="content">
+                <p class="content-text">
+                    Be the first to Create a Ticket
+                </p>
             </div>
             {% endfor %}
         </div>
     </section>
-    
 </article>
 
 {% endblock %}
