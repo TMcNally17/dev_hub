@@ -4,12 +4,20 @@
 
 {% block content %}
 
-<div class="col-10">
-    <form method="POST">
-        {% csrf_token %}
-        {{ topic_form | as_bootstrap }}
-        <button type="submit" class="btn btn-primary">{{ context }}</button>
-    </form>
-</div>
+<article class="pale-bg">
+    <section class="container">
+        <div class="col-8 mx-auto content">
+            <form method="POST">
+                {% csrf_token %}
+                {{ topic_form | as_bootstrap }}
+                <div class="content">
+                    <button type="submit" class="btn btn-custom blue-bg">{{ context }}</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</article>
+
+
 
 {% endblock %}

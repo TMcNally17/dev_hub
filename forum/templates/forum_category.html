@@ -2,41 +2,67 @@
 {% load static from staticfiles %}
 {% block content %}
 
-
-<div>
-    <p>Create a Topic here</p>
-    {% if user.is_authenticated %}
-    <a href="{% url 'create_topic' id %}">
-        <button class="btn btn-primary">Create Topic</button>
-    </a>
-    {% else %}
-    <p>To create a topic please <a href="{% url 'login' %}">Login</a></p>
-    {% endif %}
-</div>
-<div class="row row-flex">
-    {% for topic in topics %}
-    <div class="col-10">
-        <div class="row">
-            {% if topic.image %}
-            <div class="col-2">
-                <img style="width: 100%;" src="{{ topic.image.url }}"></img>
-            </div>
-            {% endif %}
-            <div class="col-10">
-                <a href="{% url 'topic' topic.id %}">
-                    <h6>{{ topic.title }}</h6>
+<article class="pale-bg">
+    <section class="container">
+        <div class="content">
+            <h4 class="header-title">{{ category.topic }} - {{ category.title }}</h4>
+            <h6>Welcome to {{ category.topic }}</h6>
+            <p class="content-text">
+                Please read through the topics to see if it exists before creating
+                a new topic. If your topic doesn't exist, create a new topic
+                and we will do our best to respond to your topic.</p>
+            {% if user.is_authenticated %}
+            <div class="row">
+                <a href="{% url 'create_topic' id %}">
+                    <button class="btn btn-custom blue-bg">Create Topic</button>
                 </a>
-                <p>{{ topic.description }}</p>
-                <p>Posts: {{ topic.posts }}</p>
-                <p>{{ topic.date }}</p>
             </div>
-            {% if user == topic.created_by or user.is_staff %}
-            <a href="{% url 'edit_topic' topic.id %}">
-                <button class="btn btn-primary">Edit</button>
-            </a>
+            {% else %}
+            <div>
+                <p>
+                    To create a topic please 
+                    <strong><a href="{% url 'login' %}">Login</a></strong>
+                </p>
+            </div>
             {% endif %}
         </div>
-    </div>
-    {% endfor %}
-</div>
+        
+        <div class="content column">
+            {% for topic in topics %}
+            <div class="col-12">
+                <div class="row">
+                    {% if topic.image %}
+                    <div class="col-md-2 col-sm-4">
+                        <img class="forum-img" src="{{ topic.image.url }}"></img>
+                    </div>
+                    {% endif %}
+                    <div class="col-md-10 col-sm-8">
+                        <div class="row justify-content-around px-5">
+                            <div>
+                                <a href="{% url 'topic' topic.id %}">
+                                    <h5>{{ topic.title }}</h5>
+                                </a>
+                            </div>
+                            <div>
+                                <p>Posts: {{ topic.posts }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="content-text">{{ topic.description }}</p>
+                            <p>By {{ topic.created_by }} on {{ topic.date }}</p>
+                        </div>
+                    </div>
+                    {% if user == topic.created_by or user.is_staff %}
+                    <a href="{% url 'edit_topic' id topic.id %}">
+                        <button class="btn btn-custom blue-bg">Edit</button>
+                    </a>
+                    {% endif %}
+                </div>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</article>
+
 {% endblock %}

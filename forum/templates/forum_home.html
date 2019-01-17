@@ -2,24 +2,44 @@
 {% load static from staticfiles %}
 {% block content %}
 
-
-<div class="row row-flex">
-    {% for category in categories %}
-    <div class="col-10">
-        <div class="row">
-            <div class="col-2">
-                <img style="width: 100%;" src="{% static 'images/' %}{{category.image_url}}"></img>
+<article class="pale-bg">
+    <section class="container">
+        <div class="content column">
+            <div class="content-text">
+                <h4 class="header-title">Forum</h4>
+                <p>
+                    Welcome to the Forum. 
+                </p>
             </div>
-            <div class="col-10">
-                <a href="{% url 'category' category.id %}">
-                    <h6>{{ category.topic }} - {{ category.title }}</h6>
-                </a>
-                <p>{{ category.description }}</p>
-                <p>Posts: {{ category.posts }}</p>
-                <p>{{ category.date }}</p>
+            {% for category in categories %}
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-2 col-sm-4">
+                        <img class="forum-img" src="{% static 'images/' %}{{category.image_url}}"></img>
+                    </div>
+                    <div class="col-md-10 col-sm-8">
+                        <div class="row justify-content-between px-5">
+                            <div>
+                                <a href="{% url 'category' category.id %}">
+                                    <h5>{{ category.topic }} - {{ category.title }}</h5>
+                                </a>
+                            </div>
+                            <div>
+                                <h6>Posts: {{ category.posts }}</h6>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="content-text">{{ category.description }}</p>
+                            <p>{{ category.date }}</p>
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
+            {% endfor %}
         </div>
-    </div>
-    {% endfor %}
-</div>
+    </section>
+</article>
+
+
 {% endblock %}

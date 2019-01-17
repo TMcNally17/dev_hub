@@ -2,66 +2,102 @@
 {% load static from staticfiles %}
 {% block content %}
 
-<div class="col-10">
-    <div class="row">
-        {% if topic.image %}
-        <div class="col-2">
-            <img style="width: 100%;" src="{{ topic.image.url }}"></img>
-        </div>
-        {% endif %}
-        <div class="col-10">
-            <h6>{{ topic.title }}</h6>
-            <p>{{ topic.description }}</p>
-            <p>{{ topic.date }}</p>
-        </div>
-    </div>
-</div>
-
-<div>
-    {% if user.is_authenticated or user.is_staff %}
-    <a href="{% url 'create_post' id %}">
-        <button class="btn btn-primary">Reply</button>
-    </a>
-    {% else %}
-    <p>To create a ticket please <a href="{% url 'login' %}">Login</a></p>
-    {% endif %}
-</div>
-
-<div class="row row-flex">
-    {% for post in posts %}
-    <div class="col-10">
-        <div class="row">
-            {% if post.image %}
-            <div class="col-2">
-                <img style="width: 100%;" src="{{ post.image.url }}"></img>
-            </div>
-            {% endif %}
-            <div class="col-10">
-                <h6>{{ post.title }}</h6>
-                <p>{{ post.description }}</p>
-                <p>{{ post.author.profile.forum_tag }}</p>
-                <p>{{ post.author }} - {{ post.date }}</p>
-            </div>
-            <div>
-                {{ post.upvotes }}
-                {% if user.is_authenticated %} 
-                <a href="{% url 'upvote_post' post.id %}">
-                    <button class="btn btn-primary">Upvote</button>
-                </a>
+<article class="pale-bg">
+    <section class="container">
+        <div class="col-12">
+            <div class="row content">
+                {% if topic.image %}
+                <div class="col-md-2 col-sm-4">
+                    <img class="topic-img" src="{{ topic.image.url }}"></img>
+                </div>
                 {% endif %}
+                <div class="col-md-10 col-sm-8">
+                    <div class="row justify-content-around px-5">
+                        <div>
+                            <a href="{% url 'topic' topic.id %}">
+                                <h5>{{ topic.title }}</h5>
+                            </a>
+                        </div>
+                        <div>
+                            <p>Posts: {{ topic.posts }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="content-text">{{ topic.description }}</p>
+                        <p>By {{ topic.created_by }} on {{ topic.date }}</p>
+                    </div>
+                </div>
             </div>
-            {% if user == post.author or user.is_staff %}
-            <a href="{% url 'edit_post' post.id %}">
-                <button class="btn btn-primary">Edit</button>
+        </div>
+        
+        <div>
+            {% if topic.locked  %}
+            <div>
+                <h6>This topic has been locked by the admin</h6>
+                <a href="{% url 'create_post' id %}">
+                    <button class="btn btn-custom blue-bg" disabled>Reply</button>
+                </a>
+            </div>
+            {% elif user.is_authenticated or user.is_staff %}
+            <a href="{% url 'create_post' id %}">
+                <button class="btn btn-custom blue-bg">Reply</button>
             </a>
+            {% else %}
+            <p>To create a ticket please <a href="{% url 'login' %}">Login</a></p>
             {% endif %}
         </div>
-    </div>
-    {% empty %}
-    <div class="row">
-        <h6>Be the first to post here</h6>
-    </div>
-    
-    {% endfor %}
-</div>
+        
+        <div class="content column">
+            {% for post in posts %}
+            <div class="col-12">
+                <div class="row">
+                    {% if post.image %}
+                    <div class="col-md-2 col-sm-4">
+                        <img class="forum-img" src="{{ post.image.url }}"></img>
+                    </div>
+                    {% endif %}
+                    <div class="col-md-10 col-sm-8">
+                        <div class="row justify-content-around px-5">
+                            <div>
+                                <h5>{{ post.title }}</h5>
+                            </div>
+                            <div class="column justify-content-center">
+                                <p>
+                                    Upvote 
+                                    {% if user.is_authenticated %}
+                                    <a href="{% url 'upvote_post' post.id %}">
+                                        <i class="fas fa-chevron-up upvote"></i>
+                                    </a>
+                                    {% endif %}
+                                </p>
+                                <p>
+                                    <strong>{{ post.upvotes }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="content-text">{{ post.description }}</p>
+                            
+                            
+                            <p>By {{ post.author }} on {{ post.date }}</p>
+                            <p>{{ post.author.profile.forum_tag }}</p>
+                        </div>
+                    </div>
+                    {% if user == post.author or user.is_staff %}
+                    <a href="{% url 'edit_post' id post.id %}">
+                        <button class="btn btn-custom blue-bg">Edit</button>
+                    </a>
+                    {% endif %}
+                </div>
+                <hr>
+            </div>
+            {% empty %}
+            <div class="row">
+                <h6>Be the first to post here</h6>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</article>
+
 {% endblock %}
