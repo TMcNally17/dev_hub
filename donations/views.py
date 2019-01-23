@@ -54,7 +54,10 @@ def donate(request, amount):
 def donation_amount():
     
     donations =  Donation.objects.all().aggregate(amount=Sum('donation_amount'))
-    total_donations = int(donations["amount"] / 100)
+    if donations["amount"] == None:
+        total_donations = 0
+    else:
+        total_donations = int(donations["amount"] / 100)
     
     return total_donations
     

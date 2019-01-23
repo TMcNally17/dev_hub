@@ -2,36 +2,44 @@
 {% load static from staticfiles %}
 {% block content %}
 
+<article class="darkgreen-bg">
+    <section class="container">
+        <div class="content content-text">
+            <h4 class="header-title">Blog</h4>
+            <p>
+                Welcome to your Blog. Here you can read about what has been
+                happening lately.
+            </p>
+        </div>
+    </section>
+</article>
+
 <article class="pale-bg">
     <section class="container">
-        <div>
-            <p>Welcome to your Blog. Here you can read about what has been happening lately.</p>
-        </div>
-        
-        <div class="row row-flex">
+        <div class="row content">
             {% for blog in blog_posts %}
             {% if forloop.counter|divisibleby:2 %}
-            <div class="row col-10">
-                <div class="col-6">
-                    <h6>{{ blog.topic }}</h6>
-                    <h6>{{ blog.title }}</h6>
-                    <p>{{ blog.description }}</p>
-                    <p>{{ blog.author }} on {{ blog.date }}</p>
+            <div class="row col-12 ticket blue-bg">
+                <div class="col-lg-8 col-sm-12">
+                    <h4 class="blog-title">{{ blog.title }}</h4>
+                    <h5>Topic: {{ blog.topic }}</h5>
+                    <p class="content-text">{{ blog.description }}</p>
+                    <h6>Posted by {{ blog.author }} on {{ blog.date }}</h6>
                 </div>
-                <div class="col-6">
-                    <img style="width: 75%;" src="{% static 'images/' %}{{blog.image}}"></img>
+                <div class="col-lg-4 col-sm-12">
+                    <img class="blog-img py-4" src="{% static 'images/' %}{{blog.image}}"></img>
                 </div>
             </div>
             {% else %}
-            <div class="row col-10">
-                <div class="col-6">
-                    <img style="width: 75%;" src="{% static 'images/' %}{{blog.image}}"></img>
+            <div class="row col-12 ticket blue-bg">
+                <div class="col-lg-4 col-sm-12">
+                    <img class="blog-img py-4" src="{% static 'images/' %}{{blog.image}}"></img>
                 </div>
-                <div class="col-6">
-                    <h6>{{ blog.topic }}</h6>
-                    <h6>{{ blog.title }}</h6>
-                    <p>{{ blog.description }}</p>
-                    <p>{{ blog.author }} on {{ blog.date }}</p>
+                <div class="col-lg-8 col-sm-12">
+                    <h4 class="blog-title">{{ blog.title }}</h4>
+                    <h5>Topic: {{ blog.topic }}</h5>
+                    <p class="content-text">{{ blog.description }}</p>
+                    <h6>Posted by {{ blog.author }} on {{ blog.date }}</h6>
                 </div>
             </div>
             {% endif %}
@@ -39,7 +47,4 @@
         </div>
     </section>
 </article>
-
-
-
 {% endblock %}

@@ -19,6 +19,8 @@ class UserRegistrationForm(UserCreationForm):
         
         model = User
         fields = ["username", "first_name", "last_name", "email", "password1", "password2"]
+        
+        REQUIRED_FIELDS = ["email"]
     
     def clean_email(self):
         

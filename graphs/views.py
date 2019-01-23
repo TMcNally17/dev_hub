@@ -101,6 +101,12 @@ def graphs(request):
     donation_chart = {
         "chart": {"type": "column"},
         "title": {"text": "Donations"},
+        "colors": ["#DADFE5", "#39393A", "#A5C1B7", "#A6B990", "#628193"],
+        "plotOptions": {
+            "series": {
+                "colorByPoint": "true"
+            },
+        },
         "xAxis": {
             "type": "category",
             "labels": {
@@ -118,7 +124,6 @@ def graphs(request):
         },
         "series": [{
             "name": 'Donations',
-            "color": "#628193",
             "data": donations,
         }]
     }

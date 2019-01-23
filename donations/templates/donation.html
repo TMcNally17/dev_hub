@@ -7,75 +7,145 @@
 {% endblock %}
 
 {% block content %}
-{% if messages %}
-<div>
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-</div>
-{% endif %}
 
-<div class="row">
-    <!--Donate £5 form-->
-    <div class="col-4">
-        <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-            sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-            magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl
-            ut aliquip ex ea commodo consequat. 
-        </p>
-        <form method="POST" id="donate-5" action="{% url 'donate' 500 %}">
-            {% csrf_token %}
-            <input class="btn btn-primary" type="submit" value="Donate £5">
-        </form>
-    </div>
-    
-    <!--Donate £10 form-->
-    <div class="col-4">
-        <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-            sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-            magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl
-            ut aliquip ex ea commodo consequat. 
-        </p>
-        <form class="col-4" method="POST" id="donate-10" action="{% url 'donate' 1000 %}">
-            {% csrf_token %}
-            <input class="btn btn-primary" type="submit" value="Donate £10">
-        </form>
-    </div>
-    
-    <!--Donate £15 form-->
-    <div class="col-4">
-        <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-            sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-            magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl
-            ut aliquip ex ea commodo consequat. 
-        </p>
-        <form class="col-4" method="POST" id="donate-15" action="{% url 'donate' 1500 %}">
-            {% csrf_token %}
-            <input class="btn btn-primary" type="submit" value="Donate £15">
-        </form>
-    </div>
-</div>
-<div>
-    <p>This is our total donations towards the next step of development. The current total is £{{ total_donations }}.</p>
-</div>
-<div class="pale-bg" id="donation_progress">
-  <div class="green-bg" id="donations">{{ donation_width }}%</div>
-</div>
+<article class="darkgreen-bg">
+    <section class="container">
+        <div class="content content-text">
+            <div>
+                <h4 class="header-title">Donations</h4>
+                <p class="col-lg-8 offset-lg-2 pb-4">
+                    Welcome to donations. Thank you for taking an interest in 
+                    our project. We are working to benefit people like
+                    you who are interested in our project.
+                </p>
+                <p class="col-lg-8 offset-lg-2">
+                    We would love for you to donate to our project to help us 
+                    further the project and add new features which of course you 
+                    will have a say in as when you donate you will get a new 
+                    member status and early access to the project.
+                </p>
+                {% if user.is_authenticated %}
+                <p>
+                    To donate select an option below.
+                </p>
+                {% else %}
+                <p>
+                    To donate please <strong><a href="{% url 'login' %}">Login</a></strong>
+                </p>
+                {% endif %}
+            </div>
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</article>
+        
+<article class="pale-bg">
+    <section class="container">
+        <div>
+            <div class="row content">
+                <!--Donate £5 form-->
+                <div class="col-lg-4 col-sm-12 d-flex flex-column">
+                    <p class="content-text">
+                        If you want to donate £5 that will help us out and you 
+                        will get a new member status. Just click the button below.
+                    </p>
+                    <div class="row justify-content-center mt-auto">
+                        {% if user.is_authenticated %}
+                        <form method="POST" id="donate-5" action="{% url 'donate' 500 %}">
+                            {% csrf_token %}
+                            <input class="btn btn-custom blue-bg" type="submit" value="Donate £5">
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!--Donate £10 form-->
+                <div class="col-lg-4 col-sm-12 d-flex flex-column">
+                    <p class="content-text">
+                       If you want to donate £10 that is amazing and will help us
+                       out alot and you will get a new member status and early 
+                       access to the project. Just click the button below.
+                    </p>
+                    <div class="row justify-content-center mt-auto">
+                        {% if user.is_authenticated %}
+                        <form method="POST" id="donate-10" action="{% url 'donate' 1000 %}">
+                            {% csrf_token %}
+                            <input class="btn btn-custom blue-bg" type="submit" value="Donate £10">
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                
+                <!--Donate £15 form-->
+                <div class="col-lg-4 col-sm-12 d-flex flex-column">
+                    <p class="content-text">
+                        If you want to donate £15 that is awesome! You will be helping
+                        us alot to help achieve the project's full potential and you 
+                        will get a new member status and early access to the project, 
+                        plus a unique forum badge. Just click the button below.
+                    </p>
+                    <div class="row justify-content-center mt-auto">
+                        {% if user.is_authenticated %}
+                        <form method="POST" id="donate-15" action="{% url 'donate' 1500 %}">
+                            {% csrf_token %}
+                            <input class="btn btn-custom blue-bg" type="submit" value="Donate £15">
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            
+            <div class="content">
+                <div class="content-text">
+                    <p>
+                        This is our total donations towards the next stage of 
+                        development. The current total is £{{ total_donations }}.
+                        Our aim is to get £{{ target }} for the next stage of 
+                        development.
+                    </p>
+                </div>
+                <div class="pale-bg" id="donation_progress">
+                    <div class="green-bg" id="donations"><span>{{ donation_width }}%</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+<article class="dark-bg">
+    <section class="container">
+        <div class="col-lg-6 offset-lg-3 content content-text">
+            <div class="footer">
+                <p>
+                    Thank you for your donations so far. They really do help 
+                    if you would like to see how much has been donated per day
+                    you can have a look at your 
+                    <strong><a class="footer" href="{% url 'graphs' %}">Graphs</a></strong>
+                </p>
+            </div>
+        </div>
+    </section>
+</article>
+
 
 
 <script>
-    $(document).ready(function() {
-        $("#donations").animate({
-            width : "{{ donation_width }}%"
-        }, 1500);
-    });
+    
+    $("#donations").animate({
+        width : "{{ donation_width }}%"
+    }, 1500);
+    
 </script>
+
+
 <script>
     var handler_5 = StripeCheckout.configure({
         key: "{{ publishable }}",

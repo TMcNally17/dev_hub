@@ -4,29 +4,43 @@
 
 {% block content %}
 
-<h2>Login</h2>
+<article class="darkgreen-bg">
+    <section class="container">
+        <div class="content content-text">
+            <div>
+                <h4 class="header-title">Login</h4>
+                <p class="col-lg-8 offset-lg-2">
+                    Thank you for taking an interest in our project.
+                    Please login to access more of the site. If you
+                    don't have account please register.
+                </p>
+            </div>
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</article>
 
-{% if messages %}
-<div>
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-</div>
-{% endif %}
-
-<form method="POST">
-    {% csrf_token %}
-    {{ login_form | as_bootstrap }}
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<p>
-    <a href="{% url 'password_reset' %}">Forgotten Password?</a>
-</p>
-
-<p>
-    If you do not have an account with us, you can 
-    <a href="{% url 'register' %}">Register Here</a>
-</p>
+<article class="pale-bg">
+    <section class="container">
+        <div class="col-lg-8 offset-lg-2">
+            <form class="content" method="POST">
+                {% csrf_token %}
+                {{ login_form | as_bootstrap }}
+                <button type="submit" class="btn btn-custom blue-bg">Submit</button>
+            </form>
+            <strong><a href="{% url 'password_reset' %}">Forgotten Password?</a></strong>
+        </div>
+        <p class="content-text">
+            If you do not have an account with us, you can 
+            <strong><a href="{% url 'register' %}">Register Here</a></strong>
+        </p>
+    </section>
+</article>
 
 {% endblock %}

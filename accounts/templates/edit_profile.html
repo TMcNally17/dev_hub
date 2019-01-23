@@ -4,10 +4,29 @@
 
 {% block content %}
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ profile_form | as_bootstrap }}
-    <button type="submit" class="btn btn-primary">Edit Profile</button>
-</form>
+<article class="darkgreen-bg">
+    <section class="container">
+        <div class="content content-text">
+            <div>
+                <h4 class="header-title">Edit Profile</h4>
+                <p class="col-lg-8 offset-lg-2">
+                    Please pick a picture for your avatar and provide a witty
+                    line for your forum posts.
+                </p>
+            </div>
+        </div>
+    </section>
+</article>
 
+<article class="pale-bg">
+    <section class="container">
+        <div class="col-lg-8 offset-lg-2">
+            <form class="content" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ profile_form | as_bootstrap }}
+            <button type="submit" class="btn btn-custom blue-bg mt-4">Edit Profile</button>
+        </form>
+        </div>
+    </section>
+</article>
 {% endblock %}

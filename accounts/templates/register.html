@@ -4,23 +4,41 @@
 
 {% block content %}
 
-<h1>{{ title }}</h1>
+<article class="darkgreen-bg">
+    <section class="container">
+        <div class="content content-text">
+            <div>
+                <h4 class="header-title">Register</h4>
+                <p class="col-lg-8 offset-lg-2">
+                    Thank you for taking an interest in our project.
+                    Please register below by filling in the registration
+                    form.
+                </p>
+            </div>
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</article>
 
-<p>If you already have an account you can <a href="{% url 'login' %}">Login</a>.</p>
-
-{% if messages %}
-<div>
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-</div>
-{% endif %}
-<div class="col-10">
-    <form method="POST">
-        {% csrf_token %}
-        {{ registration_form | as_bootstrap }}
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-</div>
-
+<article class="pale-bg">
+    <section class="container">
+        <div class="col-lg-8 offset-lg-2">
+            <p class="pt-4">
+                If you already have an account you can 
+                <strong><a href="{% url 'login' %}">Login</a></strong>
+            </p>
+            <form class="content" method="POST">
+                {% csrf_token %}
+                {{ registration_form | as_bootstrap }}
+                <button type="submit" class="btn btn-custom blue-bg">Register</button>
+            </form>
+        </div>
+    </section>
+</article>
 {% endblock %}

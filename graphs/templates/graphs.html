@@ -2,11 +2,60 @@
 {% load static from staticfiles %}
 {% block content %}
 
-<div id="upvote_chart"></div>
+<article class="darkgreen-bg">
+    <section class="container">
+        <div class="content content-text">
+            <h4 class="header-title">Graphs</h4>
+            <p class="col-lg-8 offset-lg-2 pb-4">
+                Welcome to graphs, we want to be able to show you how we are
+                doing. We have graphs to show about upvotes on tickets, the 
+                status of tickets and the donations we have recieved.
+            </p>
+        </div>
+    </section>
+</article>
 
-<div id="status_chart"></div>
 
-<div id="donation_chart"></div>
+<article class="pale-bg">
+    <section class="container">
+        <div class="content">
+            <div id="upvote_chart"></div>
+        </div>
+        <p class="col-lg-8 offset-lg-2 mb-0 content-text">
+            This graph shows the top 5 most upvoted tickets, this shows us which
+            ticket issues most of you are experiencing regularly and we can put
+            more effort into fixing this first.
+        </p>
+    </section>
+</article>
+
+<article class="blue-bg">
+    <section class="container">
+        <div class="content">
+            <div id="status_chart"></div>
+        </div>
+        <p class="col-lg-8 offset-lg-2 mb-0 content-text">
+            This graph shows the amount of tickets by their status, this is to 
+            show you how many tickets we have fixed against how many we need to
+            start and have started.
+        </p>
+    </section>
+</article>
+
+<article class="darkgreen-bg">
+    <section class="container">
+        <div class="content">
+            <div id="donation_chart"></div>
+        </div>
+        <p class="col-lg-8 offset-lg-2 mb-0 content-text">
+            This graph shows the amount of donations we have received per day. If
+            you have any questions about donations please post them in the forum
+            category <strong><a href="{% url 'category' 4 %}">Donations</a></strong>
+        </p>
+    </section>
+</article>
+            
+            
 
 <script>
   Highcharts.chart('upvote_chart', {{ upvote_chart | safe }});

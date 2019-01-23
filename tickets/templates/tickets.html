@@ -2,9 +2,9 @@
 {% load static from staticfiles %}
 {% block content %}
 
-<article class="pale-bg">
+<article class="darkgreen-bg">
     <section class="container">
-        <div class="content">
+        <div class="content content-text">
             <h4 class="header-title">Bug Tickets</h4>
             <p class="content-text">
                 Keep users updated on the progress
@@ -15,16 +15,25 @@
                 Create a ticket here for any bugs you have found and we will fix them,
                 check back to see if the has been updated.
             </p>
+            
             {% if user.is_authenticated %}
-            <div class="row justify-content-center">
+            <div class="row">
                 <a href="{% url 'create_ticket' %}">
-                    <button class="btn btn-custom darkgreen-bg">Create Ticket</button>
+                    <button class="btn btn-custom blue-bg">Create Ticket</button>
                 </a>
             </div>
             {% else %}
             <p>
                 To create a ticket please <strong><a href="{% url 'login' %}">Login</a></strong>
             </p>
+            {% endif %}
+            
+            {% if messages %}
+            <div class="messages content-text">
+                {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
             {% endif %}
         </div>
     </section>

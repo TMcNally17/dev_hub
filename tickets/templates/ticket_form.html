@@ -5,11 +5,11 @@
 {% block content %}
 <article>
     <section class="container">
-        <div class="col-10">
+        <div class="col-8 mx-auto content">
             <form method="POST">
                 {% csrf_token %}
                 {{ bug_ticket_form | as_bootstrap }}
-                <button type="submit" class="btn btn-primary">{{ context }}</button>
+                <button type="submit" class="btn btn-custom blue-bg">{{ context }}</button>
             </form>
         </div>
     </section>
