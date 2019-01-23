@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .forms import TopicForm, PostForm
+from .forms import NewTopicForm, EditTopicForm, PostForm
 from .models import Category, Topic, Post
 
 
@@ -19,7 +19,7 @@ class TestForumForms(TestCase):
     def test_create_topic_form(self):
         
         # Test topic form is valid with correct inputs
-        topic_form = TopicForm({
+        topic_form = NewTopicForm({
             "title": "test_topic",
             "description": "test_description",
             "image": "test_image"})
@@ -30,13 +30,13 @@ class TestForumForms(TestCase):
     def test_topic_form_with_same_title(self):
         
         # Test topic with same name as one that exists is not validated
-        topic_form = TopicForm({
+        topic_form = NewTopicForm({
             "title": "test_topic",
             "description": "test_description",
             "image": "test_image"})
         topic_form.save()
         
-        topic_form_1 = TopicForm({
+        topic_form_1 = NewTopicForm({
             "title": "test_topic",
             "description": "test_description_1",
             "image": "test_image_1"})
@@ -47,7 +47,7 @@ class TestForumForms(TestCase):
     def test_edit_topic_form(self):
         
         # Test topic form is updated with different data
-        topic_form = TopicForm({
+        topic_form = EditTopicForm({
             "title": "test_title",
             "description": "test_description",
             "image": "test_image"})

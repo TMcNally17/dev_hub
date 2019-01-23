@@ -16,7 +16,7 @@
                 <div class="col-md-10 col-sm-8">
                     <div class="row justify-content-around px-5">
                         <div>
-                            <a href="{% url 'topic' topic.id %}">
+                            <a href="{% url 'topic' topic_id %}">
                                 <h5>{{ topic.title }}</h5>
                             </a>
                         </div>
@@ -33,8 +33,8 @@
             <hr>
         </div>
         
-        <div class="col-8 mx-auto">
-            <form method="POST">
+        <div class="col-8 mx-auto content">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ post_form | as_bootstrap }}
                 <div class="content">

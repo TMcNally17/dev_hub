@@ -2,28 +2,31 @@
 {% load static from staticfiles %}
 {% block content %}
 
-<article class="pale-bg">
-    <section class="container">
+<article class="darkgreen-bg">
+    <section class="container content">
         <div class="col-12">
+            <a href="{% url 'category' category_id %}">
+                <h6>Back to category</h6>
+            </a>
             <div class="row content">
                 {% if topic.image %}
                 <div class="col-md-2 col-sm-4">
-                    <img class="topic-img" src="{{ topic.image.url }}"></img>
+                    <img class="forum-img" src="{{ topic.image.url }}"></img>
                 </div>
+                {% else %}
+                <div class="col-md-2 col-sm-4"></div>
                 {% endif %}
                 <div class="col-md-10 col-sm-8">
                     <div class="row justify-content-around px-5">
                         <div>
-                            <a href="{% url 'topic' topic.id %}">
-                                <h5>{{ topic.title }}</h5>
-                            </a>
+                            <h5>{{ topic.title }}</h5>
                         </div>
                         <div>
                             <p>Posts: {{ topic.posts }}</p>
                         </div>
                     </div>
                     <div>
-                        <p class="content-text">{{ topic.description }}</p>
+                        <p class="py-4">{{ topic.description }}</p>
                         <p>By {{ topic.created_by }} on {{ topic.date }}</p>
                     </div>
                 </div>
@@ -34,12 +37,12 @@
             {% if topic.locked  %}
             <div>
                 <h6>This topic has been locked by the admin</h6>
-                <a href="{% url 'create_post' id %}">
+                <a href="{% url 'create_post' topic_id %}">
                     <button class="btn btn-custom blue-bg" disabled>Reply</button>
                 </a>
             </div>
             {% elif user.is_authenticated or user.is_staff %}
-            <a href="{% url 'create_post' id %}">
+            <a href="{% url 'create_post' topic_id %}">
                 <button class="btn btn-custom blue-bg">Reply</button>
             </a>
             {% else %}
@@ -47,6 +50,18 @@
             {% endif %}
         </div>
         
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+</article>
+        
+<article class="pale-bg">
+    <section class="container">
         <div class="content column">
             {% for post in posts %}
             <div class="col-12">
@@ -55,8 +70,10 @@
                     <div class="col-md-2 col-sm-4">
                         <img class="forum-img" src="{{ post.image.url }}"></img>
                     </div>
+                    {% else %}
+                    <div class="col-md-2 col-sm-4"></div>
                     {% endif %}
-                    <div class="col-md-10 col-sm-8">
+                    <div class="col-md-9 col-sm-7">
                         <div class="row justify-content-around px-5">
                             <div>
                                 <h5>{{ post.title }}</h5>
@@ -75,19 +92,30 @@
                                 </p>
                             </div>
                         </div>
-                        <div>
-                            <p class="content-text">{{ post.description }}</p>
-                            
-                            
-                            <p>By {{ post.author }} on {{ post.date }}</p>
-                            <p>{{ post.author.profile.forum_tag }}</p>
-                        </div>
+                        <p class="py-4">{{ post.description }}</p>
                     </div>
-                    {% if user == post.author or user.is_staff %}
-                    <a href="{% url 'edit_post' id post.id %}">
-                        <button class="btn btn-custom blue-bg">Edit</button>
-                    </a>
+                    <div class="col-1">
+                        {% if user == post.author or user.is_staff %}
+                        <a href="{% url 'edit_post' topic_id post.id %}">
+                            <button class="btn btn-custom blue-bg">Edit</button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    {% if post.author.profile.avatar %}
+                    <div class="col-md-2 col-sm-4">
+                        <img class="forum-img" src="{{ post.author.profile.avatar }}"></img>
+                    </div>
+                    {% else %}
+                    <div class="col-md-2 col-sm-4">
+                        <img class="forum-img"  src="{% static 'images/default_profile.png' %}"></img>
+                    </div>
                     {% endif %}
+                    <div>
+                        <p>By {{ post.author }} on {{ post.date }}</p>
+                        <p>{{ post.author.profile.forum_tag }}</p>
+                    </div>
                 </div>
                 <hr>
             </div>

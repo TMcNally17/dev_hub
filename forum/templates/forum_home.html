@@ -2,15 +2,20 @@
 {% load static from staticfiles %}
 {% block content %}
 
+<article class="darkgreen-bg">
+    <section class="container">
+        <div class="content content-text">
+            <h4 class="header-title">Forum</h4>
+            <p>
+                Welcome to the Forum. 
+            </p>
+        </div>
+    </section>
+</article>
+
 <article class="pale-bg">
     <section class="container">
         <div class="content column">
-            <div class="content-text">
-                <h4 class="header-title">Forum</h4>
-                <p>
-                    Welcome to the Forum. 
-                </p>
-            </div>
             {% for category in categories %}
             <div class="col-12">
                 <div class="row">

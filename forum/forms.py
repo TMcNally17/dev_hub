@@ -2,7 +2,7 @@ from django import forms
 from .models import Topic, Post
 
 
-class TopicForm(forms.ModelForm):
+class NewTopicForm(forms.ModelForm):
     
     class Meta:
         
@@ -15,6 +15,14 @@ class TopicForm(forms.ModelForm):
         if Topic.objects.filter(title=title).exists():
             raise forms.ValidationError("Please use another title. This one already exists.")
         return title
+
+class EditTopicForm(forms.ModelForm):
+    
+    class Meta:
+        
+        model = Topic
+        fields = ("description", "image")
+    
         
 class PostForm(forms.ModelForm):
     

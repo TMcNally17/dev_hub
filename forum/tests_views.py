@@ -75,7 +75,7 @@ class TestViews(TestCase):
         
         self.client.force_login(self.user)
 
-        page = self.client.get("/forum/edit_topic/1")
+        page = self.client.get("/forum/edit_topic/1/1")
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "topic_form.html")
         
@@ -91,6 +91,6 @@ class TestViews(TestCase):
         
         self.client.force_login(self.user)
 
-        page = self.client.get("/forum/edit_post/1")
+        page = self.client.get("/forum/edit_post/1/1")
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "post_form.html")
