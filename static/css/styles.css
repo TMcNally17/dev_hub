@@ -30,6 +30,18 @@ a:hover {
     text-decoration: none;
 }
 
+.success {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #53BB2F;
+}
+
+.error,
+.error-msg {
+    font-weight: bold;
+    color: #CB4B4B;
+}
+
 .content {
     padding: 2rem 0;
 }
@@ -71,8 +83,7 @@ a:hover {
     padding: 2rem 0;
 }
 
-.footer,
-.footer-text {
+.footer {
     color: #FFF;
 }
 
@@ -96,7 +107,8 @@ a:hover {
     display: none;
 }
 
-.blog-img {
+.blog-img,
+.profile-img{
     width: 75%;
 }
 
@@ -132,7 +144,8 @@ a:hover {
     margin-bottom: 1rem;
 }
 
-#id_image {
+#id_image,
+#id_avatar{
     background-color: #DADFE5;
     border: none;
     padding: 0.5rem 2rem;
@@ -141,13 +154,18 @@ a:hover {
 
 #donation_progress {
     width: 100%;
+    border: solid 1px #39393A;
+    border-radius: 10px;
 }
 
 #donations {
     width: 1%;
-    height: 30px;
+    height: 2.5rem;
+    font-size: 1.5rem;
     text-align: center;
     color: #000;
+    border: solid 0px #A5C1B7;
+    border-radius: 10px;
 }
 
 @media (min-width: 576px) {

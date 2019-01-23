@@ -19,11 +19,5 @@ $( document ).ready(function() {
             }, 400);
             $(this).removeClass("darkgreen-bg")
         });
-        
-   
-    $("#donations").animate({
-        width : "{{ donation_width }}%"
-    }, 1500);
-    
     
 });
