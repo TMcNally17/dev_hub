@@ -14,13 +14,25 @@ class UserRegistrationForm(UserCreationForm):
     
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Password Confirmation", widget=forms.PasswordInput)
+    first_name = forms.CharField(max_length=50, required=True)
+    last_name = forms.CharField(max_length=50, required=True)
+    email = forms.EmailField(required=True)
         
     class Meta:
         
         model = User
         fields = ["username", "first_name", "last_name", "email", "password1", "password2"]
+        help_texts = {
+            "username": ("Must be unique. No special characters only @/./+/-/_")
+        }
         
-        REQUIRED_FIELDS = ["email"]
+    def clean_name(self):
+        
+        first_name = self.cleaned_data.get("first_name")
+        last_name = self.cleaned_data.get("last_name")
+        if not first_name  or not last_name :
+            raise forms.ValidationError("Please enter your name.")
+        return first_name, last_name
     
     def clean_email(self):
         
