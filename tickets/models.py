@@ -29,6 +29,8 @@ class Ticket(models.Model):
         
         super().save(*args, **kwargs)
         
+        print(self.created_by)
+    
         if Topic.objects.filter(title=self.title).exists():
             topic = Topic.objects.get(title=self.title)
             Topic.objects.filter(id=topic.id).update(
@@ -40,5 +42,5 @@ class Ticket(models.Model):
                 description = self.description,
                 created_by = self.created_by,
                 category = Category(pk=2))
-            
+                
     

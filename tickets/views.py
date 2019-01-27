@@ -20,7 +20,7 @@ def create_ticket(request):
         bug_ticket_form = TicketForm(request.POST)
         
         if bug_ticket_form.is_valid():
-            ticket = bug_ticket_form.save()
+            ticket = bug_ticket_form.save(commit=False)
             ticket.created_by = request.user
             ticket.save()
             messages.success(request, "Bug Ticket was successfully posted.")
