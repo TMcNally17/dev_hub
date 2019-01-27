@@ -24,7 +24,7 @@ class Topic(models.Model):
     image = models.ImageField(upload_to="forum_img", blank=True, null=True)
     posts = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
-    created_by = models.ForeignKey(User, models.SET_NULL, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
     locked = models.BooleanField(default=False)
     
@@ -38,7 +38,7 @@ class Post(models.Model):
     description = models.TextField(max_length=250, blank=False, null=False)
     date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="forum_img", blank=True, null=True)
-    author = models.ForeignKey(User, models.SET_NULL, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True, related_name="topic")
     upvotes = models.IntegerField(default=0, blank=False, null=False)
     locked = models.BooleanField(default=False)

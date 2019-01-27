@@ -12,6 +12,8 @@
                 <div class="col-md-2 col-sm-4">
                     <img class="topic-img" src="{{ topic.image.url }}"></img>
                 </div>
+                {% else %}
+                <div class="col-md-2 col-sm-4"></div>
                 {% endif %}
                 <div class="col-md-10 col-sm-8">
                     <div class="row justify-content-around px-5">
@@ -25,7 +27,7 @@
                         </div>
                     </div>
                     <div>
-                        <p class="content-text">{{ topic.description }}</p>
+                        <p class="pb-4">{{ topic.description }}</p>
                         <p>By {{ topic.created_by }} on {{ topic.date }}</p>
                     </div>
                 </div>
@@ -33,7 +35,7 @@
             <hr>
         </div>
         
-        <div class="col-8 mx-auto content">
+        <div class="col-lg-8 offset-lg-2 content">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ post_form | as_bootstrap }}

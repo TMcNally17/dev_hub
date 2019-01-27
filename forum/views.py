@@ -7,7 +7,7 @@ from .forms import NewTopicForm, EditTopicForm, PostForm
 
 def forum(request):
     
-    categories = Category.objects.all()
+    categories = Category.objects.order_by("id")
     
     for category in categories:
         topics = Topic.objects.filter(category=category.id)
@@ -20,8 +20,6 @@ def forum(request):
         
         category.posts = total_posts
         category.save()
-        
-    
     
     return render(request, "forum_home.html", {"categories": categories})
     
@@ -30,7 +28,6 @@ def category(request, category_id):
     category = Category.objects.get(id=category_id)
     topics = Topic.objects.filter(category=category_id)
     
-    
     total_posts = 0
     for topic in topics:
         posts = Post.objects.filter(topic=topic.id).count()
@@ -38,8 +35,6 @@ def category(request, category_id):
     
     category.posts = total_posts
     category.save()
-    
-    
     
     return render(request, "forum_category.html", {"category": category,
                                                     "topics": topics, 
@@ -64,7 +59,6 @@ def topic(request, topic_id):
 def create_topic(request, category_id):
     
     context = "Create Topic"
-    
     if request.method == "POST":
         
         topic_form = NewTopicForm(request.POST, request.FILES)

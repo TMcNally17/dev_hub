@@ -89,9 +89,10 @@ def graphs(request):
     
     # Donation Amount By Date 
     data = Donation.objects \
+        .order_by("date") \
         .values("date") \
         .annotate(amount=Sum('donation_amount'))
-
+        
     donations = list()
     
     for entry in data:

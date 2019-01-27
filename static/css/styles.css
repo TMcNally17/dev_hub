@@ -108,8 +108,8 @@ a:hover {
 }
 
 .blog-img,
-.profile-img{
-    width: 75%;
+.profile-img {
+    width: 100%;
 }
 
 .header-img-sm {
@@ -140,7 +140,7 @@ a:hover {
 }
 
 .forum-img {
-    width: 75%;
+    width: 100%;
     margin-bottom: 1rem;
 }
 
@@ -181,6 +181,12 @@ a:hover {
     .about-card {
         height: 175px;
     }
+    
+    .blog-img, 
+    .profile-img {
+        width: 75%;
+    }
+    
 }
 
 @media (min-width: 992px) {

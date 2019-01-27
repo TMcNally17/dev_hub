@@ -24,7 +24,7 @@
                     <h4 class="blog-title">{{ blog.title }}</h4>
                     <h5>Topic: {{ blog.topic }}</h5>
                     <p class="content-text">{{ blog.description }}</p>
-                    <h6>Posted by {{ blog.author }} on {{ blog.date }}</h6>
+                    <h6 class="pb-2">Posted by {{ blog.author }} on {{ blog.date }}</h6>
                 </div>
                 <div class="col-lg-4 col-sm-12">
                     <img class="blog-img py-4" src="{% static 'images/' %}{{blog.image}}"></img>
@@ -39,7 +39,7 @@
                     <h4 class="blog-title">{{ blog.title }}</h4>
                     <h5>Topic: {{ blog.topic }}</h5>
                     <p class="content-text">{{ blog.description }}</p>
-                    <h6>Posted by {{ blog.author }} on {{ blog.date }}</h6>
+                    <h6 class="pb-2">Posted by {{ blog.author }} on {{ blog.date }}</h6>
                 </div>
             </div>
             {% endif %}

@@ -28,23 +28,26 @@
 <article class="pale-bg">
     <section class="container content">
         <div class="row content">
-            <div class="col-lg-3 col-sm-12">
+            <div class="col-lg-3 offset-lg-3 col-sm-4">
                 {% if user.profile.avatar %}
                 <img class="profile-img" src="{{ user.profile.avatar.url }}"></img>
                 {% else %}
                 <img class="profile-img" src="{% static 'images/default_profile.png' %}"></img>
                 {% endif %}
             </div>
-            <div class="col-lg-6 col-sm-12 profile">
+            <div class="col-lg-6 col-sm-8 profile">
                 <p>First Name: {{ user.first_name }}</p>
                 <p>Last Name: {{ user.last_name }}</p>
                 <p>Email: {{ user.email }}</p>
                 <p>Forum Tag: {{ user.profile.forum_tag }}</p>
             </div>
         </div>
-        <a href="{% url 'edit_profile' %}">
-            <button class="btn btn-custom blue-bg">Edit Profile</button>
-        </a>
+        <div class="col-lg-3 offset-lg-3 col-sm-12>
+            <a href="{% url 'edit_profile' %}">
+                <button class="btn btn-custom blue-bg">Edit Profile</button>
+            </a>
+        </div>
+        
     </section>
 </article>
 {% endblock %}
