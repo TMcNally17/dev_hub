@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Category, Topic, Post
-from .forms import NewTopicForm, EditTopicForm, PostForm
+from .forms import TopicForm, PostForm
 
 
 def forum(request):
@@ -61,7 +61,7 @@ def create_topic(request, category_id):
     context = "Create Topic"
     if request.method == "POST":
         
-        topic_form = NewTopicForm(request.POST, request.FILES)
+        topic_form = TopicForm(request.POST, request.FILES)
         
         if topic_form.is_valid():
             topic = topic_form.save()
@@ -72,7 +72,7 @@ def create_topic(request, category_id):
             
             return redirect(reverse("category", kwargs={"category_id": category_id}))
     else:
-        topic_form = NewTopicForm()
+        topic_form = TopicForm()
     
     return render(request, "topic_form.html", {"topic_form": topic_form, 
                                                 "context": context})
@@ -87,14 +87,14 @@ def edit_topic(request, category_id, topic_id):
     if request.user == topic.created_by or request.user.is_staff:
         
         if request.method == "POST":
-            topic_form = EditTopicForm(request.POST, request.FILES, instance=Topic.objects.get(id=topic_id))
+            topic_form = TopicForm(request.POST, request.FILES, instance=Topic.objects.get(id=topic_id))
             
             if topic_form.is_valid():
                 topic_form.save()
                 messages.success(request, "Topic was successfully edited.")
                 return redirect(reverse("category", kwargs={"category_id": category_id})) 
         else:
-            topic_form = EditTopicForm(instance=Topic.objects.get(id=topic_id))
+            topic_form = TopicForm(instance=Topic.objects.get(id=topic_id))
     else:
         return redirect(reverse("category", kwargs={"category_id": category_id}))
     
@@ -161,5 +161,6 @@ def upvote_post(request, id):
     
     post.upvotes += 1
     post.save()
+    messages.success(request, "Thank you for upvoting.")
     
     return redirect(reverse("topic", kwargs={"topic_id": post.topic.id}))

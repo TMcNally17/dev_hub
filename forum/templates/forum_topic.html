@@ -4,10 +4,19 @@
 
 <article class="darkgreen-bg">
     <section class="container content">
-        <div class="col-12">
+        <div class="row">
             <a href="{% url 'category' category_id %}">
-                <h6>Back to category</h6>
+                <div class="link">
+                    <h6>
+                        <i class="fas fa-angle-double-right"></i>
+                        Back to category
+                    </h6>
+                </div>
+                
             </a>
+        </div>
+        
+        <div class="col-12">
             <div class="row content">
                 {% if topic.image %}
                 <div class="col-md-2 col-sm-4">
@@ -16,7 +25,7 @@
                 {% else %}
                 <div class="col-md-2 col-sm-4"></div>
                 {% endif %}
-                <div class="col-md-10 col-sm-8">
+                <div class="col-md-8 col-sm-8 topic">
                     <div class="row justify-content-around px-5">
                         <div>
                             <h5>{{ topic.title }}</h5>
@@ -27,7 +36,7 @@
                     </div>
                     <div>
                         <p class="py-4">{{ topic.description }}</p>
-                        <p>By {{ topic.created_by }} on {{ topic.date }}</p>
+                        <p>Posted by {{ topic.created_by }} - {{ topic.date | timesince }}</p>
                     </div>
                 </div>
             </div>
@@ -35,11 +44,11 @@
         
         <div>
             {% if topic.locked  %}
-            <div>
-                <h6>This topic has been locked by the admin</h6>
+            <div class="row">
                 <a href="{% url 'create_post' topic_id %}">
                     <button class="btn btn-custom blue-bg" disabled>Reply</button>
                 </a>
+                <h6 class="content-text">This topic has been locked by the admin</h6>
             </div>
             {% elif user.is_authenticated or user.is_staff %}
             <a href="{% url 'create_post' topic_id %}">
@@ -113,7 +122,7 @@
                     </div>
                     {% endif %}
                     <div>
-                        <p>By {{ post.author }} on {{ post.date }}</p>
+                        <p>Posted by {{ post.author }} - {{ post.date | timesince }}</p>
                         <p>{{ post.author.profile.forum_tag }}</p>
                     </div>
                 </div>

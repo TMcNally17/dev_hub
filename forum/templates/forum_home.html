@@ -6,7 +6,7 @@
     <section class="container">
         <div class="content content-text">
             <h4 class="header-title">Forum</h4>
-            <p>
+            <p class="pb-4">
                 Welcome to the Forum. 
             </p>
         </div>
@@ -23,8 +23,8 @@
                         <img class="forum-img" src="{% static 'images/' %}{{category.image_url}}"></img>
                     </div>
                     <div class="col-md-10 col-sm-8">
-                        <div class="row justify-content-between px-5">
-                            <div>
+                        <div class="row justify-content-between forum">
+                            <div class="link">
                                 <a href="{% url 'category' category.id %}">
                                     <h5>{{ category.topic }} - {{ category.title }}</h5>
                                 </a>
@@ -35,7 +35,6 @@
                         </div>
                         <div>
                             <p class="content-text">{{ category.description }}</p>
-                            <p>{{ category.date }}</p>
                         </div>
                     </div>
                 </div>
