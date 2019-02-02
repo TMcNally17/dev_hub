@@ -2,11 +2,21 @@
 {% load static from staticfiles %}
 
 {% block content %}
+<div class="jumbotron jumbotron-fluid main-header blue-bg">
+    <div class="container">
+        <h1 class="jumbotron-title">Dev Hub</h1>
+        <p class="content-text">All the support a project needs, all in one place.</p>
+    </div>
+</div>
+
 <article class="pale-bg">
     <div class="row">
         <a class="col-lg-4 col-sm-12 about-card" href="{% url 'tickets' %}">
             <div>
-                <h4 class="about-title">Bug Tickets</h4>
+                <div class="about-title">
+                    <h3>Bug Tickets</h3>
+                    <i class="fas fa-bug about-icon"></i>
+                </div>
                 <p class="about-text">
                     Have users provide you feedback about bugs to imporve 
                     productivty and fixes.
@@ -15,14 +25,20 @@
         </a>
         <a class="col-lg-4 col-sm-12 about-card" href="{% url 'forum' %}">
             <div>
-                <h4 class="about-title">Forum</h4>
+                <div class="about-title">
+                    <h3>Forum</h3>
+                    <i class="fas fa-comments about-icon"></i>
+                </div>
                 <p class="about-text">Let users discuss bugs, improvements
                 and provide feedback on features.</p>
             </div>
         </a>
         <a class="col-lg-4 col-sm-12 about-card" href="{% url 'graphs' %}">
             <div>
-                <h4 class="about-title">Graphs</h4>
+                <div class="about-title">
+                    <h3>Graphs</h3>
+                    <i class="fas fa-chart-bar about-icon"></i>
+                </div>
                 <p class="about-text">Show what you have a achieved in clear
                 graphs about your project.</p>
             </div>
@@ -40,11 +56,11 @@
                 blogging about it. Users can discuss the blog in the forum.</p>
             </div>
             {% if blog %}
-            <div class="col-lg-8 col-sm-12">
+            <div class="col-lg-8 col-sm-12 ticket blue-bg">
                 <h4 class="blog-title">{{ blog.title }}</h4>
                 <h5>Topic: {{ blog.topic }}</h5>
                 <p class="content-text">{{ blog.description }}</p>
-                <h6>Posted by {{ blog.author }} on {{ blog.date }}</h6>
+                <h6>Posted by {{ blog.author }} on {{ blog.date | date:"M. j. Y" }}</h6>
             </div>
             {% endif %}
         </div>

@@ -6,7 +6,7 @@
     <section class="container">
         <div class="content content-text">
             <h4 class="header-title">Blog</h4>
-            <p>
+            <p class="pb-4">
                 Welcome to your Blog. Here you can read about what has been
                 happening lately.
             </p>
@@ -24,22 +24,22 @@
                     <h4 class="blog-title">{{ blog.title }}</h4>
                     <h5>Topic: {{ blog.topic }}</h5>
                     <p class="content-text">{{ blog.description }}</p>
-                    <h6 class="pb-2">Posted by {{ blog.author }} on {{ blog.date }}</h6>
+                    <h6 class="pb-2">Posted by {{ blog.author }} on {{ blog.date | date:"M. j. Y" }}</h6>
                 </div>
-                <div class="col-lg-4 col-sm-12">
+                <div class="col-lg-4 col-sm-8 mx-auto">
                     <img class="blog-img py-4" src="{% static 'images/' %}{{blog.image}}"></img>
                 </div>
             </div>
             {% else %}
             <div class="row col-12 ticket blue-bg">
-                <div class="col-lg-4 col-sm-12">
+                <div class="col-lg-4 col-sm-8 mx-auto">
                     <img class="blog-img py-4" src="{% static 'images/' %}{{blog.image}}"></img>
                 </div>
                 <div class="col-lg-8 col-sm-12">
                     <h4 class="blog-title">{{ blog.title }}</h4>
                     <h5>Topic: {{ blog.topic }}</h5>
                     <p class="content-text">{{ blog.description }}</p>
-                    <h6 class="pb-2">Posted by {{ blog.author }} on {{ blog.date }}</h6>
+                    <h6 class="pb-2">Posted by {{ blog.author }} on {{ blog.date | date:"M. j. Y" }}</h6>
                 </div>
             </div>
             {% endif %}

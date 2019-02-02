@@ -66,7 +66,7 @@ def graphs(request):
         "chart": {"type": "pie"},
         "title": {"text": "Bug Tickets By Status "},
         "series": [{
-            "name": 'Statuses',
+            "name": 'No. of Tickets',
             "colorByPoint": "true",
             "data": [{ 
                 "name": "Not Started",
