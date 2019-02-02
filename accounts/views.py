@@ -3,7 +3,11 @@ from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.db.models import Count, Q, Sum
 from .forms import LoginForm, UserRegistrationForm, ProfileForm
+from forum.models import Post, Topic
+from tickets.models import Ticket
+
 
 
 def login(request):
@@ -63,7 +67,13 @@ def register(request):
 @login_required()
 def profile(request):
     
-    return render(request, "profile.html")
+    posts = Post.objects.filter(author=request.user).count()
+    topics = Topic.objects.filter(created_by=request.user).count()
+    tickets = Ticket.objects.filter(created_by=request.user)
+    
+    return render(request, "profile.html", {"posts": posts,
+                                            "topics": topics,
+                                            "tickets": tickets})
         
 @login_required()
 def edit_profile(request):

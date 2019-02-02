@@ -8,7 +8,7 @@
         <div class="content content-text">
             <div>
                 <h4 class="header-title">{{ user }}'s Profile</h4>
-                <p class="col-lg-8 offset-lg-2">
+                <p class="col-lg-8 offset-lg-2 pb-4">
                     Welcome to your profile. Here you can view your current
                     details and personalize your account with an avatar and
                     a forum tag.
@@ -25,29 +25,88 @@
     </section>
 </article>
 
-<article class="pale-bg">
-    <section class="container content">
+<article class="pale-bg container content-text">
+    <section class="profile">
         <div class="row content">
-            <div class="col-lg-3 offset-lg-3 col-sm-4">
+            <div class="col-lg-3 offset-lg-1 col-sm-4">
                 {% if user.profile.avatar %}
                 <img class="profile-img" src="{{ user.profile.avatar.url }}"></img>
                 {% else %}
                 <img class="profile-img" src="{% static 'images/default_profile.png' %}"></img>
                 {% endif %}
             </div>
-            <div class="col-lg-6 col-sm-8 profile">
-                <p>First Name: {{ user.first_name }}</p>
-                <p>Last Name: {{ user.last_name }}</p>
-                <p>Email: {{ user.email }}</p>
-                <p>Forum Tag: {{ user.profile.forum_tag }}</p>
+            <div class="col-lg-6 col-sm-8">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th scope="row">First Name</th>
+                            <td>{{ user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last Name</th>
+                            <td>{{ user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Forum Tag</th>
+                            <td>{{ user.profile.forum_tag }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Joined</th>
+                            <td>{{ user.date_joined | timesince }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col-lg-3 offset-lg-3 col-sm-12>
+        <div class="col-lg-8 offset-lg-1 row justify-content-around">
+            <div>
+                <h5>{{ topics }}</h5>
+                <p>Topics</p>
+            </div>
+            <div>
+                <h5>{{ posts }}</h5>
+                <p>Posts</p>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 offset-lg-1 col-sm-12">
             <a href="{% url 'edit_profile' %}">
                 <button class="btn btn-custom blue-bg">Edit Profile</button>
             </a>
         </div>
-        
     </section>
 </article>
+
+<article class="dark-bg">
+    <section class="container">
+        <div class="content content-text footer">
+            <div>
+                <h5>My Tickets</h5>
+                <p class="col-lg-8 offset-lg-2 pb-4">
+                    Welcome to your profile. Here you can view your current
+                    details and personalize your account with an avatar and
+                    a forum tag.
+                </p>
+                <table class="table">
+                    <tbody>
+                        {% for ticket in tickets %}
+                        <tr>
+                            <th scope="row">{{ ticket.title }}</th>
+                            <td>{{ ticket.description | truncatewords:10 }}</td>
+                            <td>{{ ticket.status }}</td>
+                            <td>{{ ticket.date | date:"M. j. Y" }}</td>
+                        </tr>
+                        {% empty %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</article>
+
 {% endblock %}
