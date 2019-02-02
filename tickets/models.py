@@ -20,6 +20,7 @@ class Ticket(models.Model):
     status = models.CharField(max_length=12, choices=STATUSES, default=NOT_STARTED, blank=False, null=False)
     upvotes = models.IntegerField(default=0, blank=False, null=False)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    forum_id = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     
     def __str__(self):
         return "{0}, {1}, {2}".format(self.title, self.created_by, self.date)
@@ -27,16 +28,16 @@ class Ticket(models.Model):
         
     def save(self, *args, **kwargs):
         
-        super().save(*args, **kwargs)
-    
-        if Topic.objects.filter(title=self.title).exists():
-            topic = Topic.objects.get(title=self.title)
-            Topic.objects.filter(id=topic.id).update(
+        if Topic.objects.filter(id=self.forum_id.id).exists():
+            Topic.objects.filter(id=self.forum_id.id).update(
                 title = self.title,
                 description = self.description)
         else:
-            Topic.objects.create(
+            topic = Topic.objects.create(
                 title = self.title,
                 description = self.description,
                 created_by = self.created_by,
                 category = Category(pk=2))
+            self.forum_id = Topic(pk=topic.id)
+        
+        super().save(*args, **kwargs)

@@ -51,7 +51,7 @@
                     <div class="row justify-content-between px-3">
                         <div>
                             <p class="ticket-footer">Posted by {{ ticket.created_by }}</p>
-                            <p class="ticket-footer">{{ ticket.date }}</p>
+                            <p class="ticket-footer">{{ ticket.date | date:"M. j. Y" }}</p>
                         </div>
                         <div>
                             {% if user == ticket.created_by or user.is_staff %}
@@ -95,5 +95,4 @@
         </div>
     </section>
 </article>
-
 {% endblock %}

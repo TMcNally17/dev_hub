@@ -7,7 +7,8 @@ from .models import Ticket
 
 def all_tickets(request):
     
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.order_by("-upvotes")
+    
     return render(request, "tickets.html", {"tickets": tickets})
     
 @login_required
@@ -38,7 +39,7 @@ def edit_ticket(request, id):
     context = "Edit Ticket"
     
     ticket = Ticket.objects.get(id=id)
-    if request.user == ticket.created_by or request.user.is_staff():
+    if request.user == ticket.created_by or request.user.is_staff:
     
         if request.method == "POST":
             
@@ -62,5 +63,6 @@ def upvote_ticket(request, id):
     
     ticket.upvotes += 1
     ticket.save()
+    messages.success(request, "Thank you for upvoting.")
     
     return redirect(reverse("tickets"))
