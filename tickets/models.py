@@ -28,11 +28,12 @@ class Ticket(models.Model):
         
     def save(self, *args, **kwargs):
         
-        if Topic.objects.filter(id=self.forum_id.id).exists():
+    
+        try:
             Topic.objects.filter(id=self.forum_id.id).update(
                 title = self.title,
                 description = self.description)
-        else:
+        except:
             topic = Topic.objects.create(
                 title = self.title,
                 description = self.description,

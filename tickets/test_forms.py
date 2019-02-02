@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .forms import TicketForm
 from .models import Ticket
+from forum.models import Topic
 
 
 class TestTicketForm(TestCase):

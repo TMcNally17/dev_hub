@@ -26,7 +26,6 @@ def create_ticket(request):
             ticket.save()
             messages.success(request, "Bug Ticket was successfully posted.")
             
-            
             return redirect(reverse("tickets")) 
     else:
         bug_ticket_form = TicketForm()

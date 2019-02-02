@@ -25,7 +25,6 @@ class TestTicket(TestCase):
             description = "test_description",
             created_by = self.user
         )
-            
         ticket.save()
         
         self.assertTrue(ticket.date)
@@ -34,6 +33,6 @@ class TestTicket(TestCase):
         self.assertEqual(ticket.created_by.username, "test_username")
         
         # Test to check save() creates a Topic with same data
-        topic = Topic.objects.get(id=1)
+        topic = Topic.objects.get(id=ticket.forum_id.id)
         
         self.assertEqual(topic.title, "test_title")
