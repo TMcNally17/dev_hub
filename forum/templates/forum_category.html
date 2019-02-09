@@ -43,31 +43,27 @@
     <section class="container">
         <div class="content column">
             {% for topic in topics %}
-            <div class="col-12">
+            <div>
                 <div class="row">
-                    {% if topic.image %}
-                    <div class="col-md-2 col-sm-4">
-                        <img class="forum-img" src="{{ topic.image.url }}"></img>
-                    </div>
-                    {% else %}
-                    <div class="col-md-2 col-sm-4"></div>
-                    {% endif %}
-                    <div class="col-md-8 col-sm-7">
+                    <div class="col-lg-8 offset-lg-2 col-sm-12">
                         <div class="row justify-content-between px-5">
-                            <div class="link">
+                            <div class="link col-lg-6 col-sm-8 offset-sm-2">
                                 <a href="{% url 'topic' topic.id %}">
-                                    <h5>
+                                    <h4>
                                         <i class="fas fa-comment"></i>
                                         {{ topic.title }}
-                                    </h5>
+                                    </h4>
                                 </a>
                             </div>
-                            <div>
-                                <p>Posts: {{ topic.posts }}</p>
+                            <div class="col-sm-12 mt-2">
+                                <h5 class="float-right">Posts: {{ topic.posts }}</h5>
                             </div>
                         </div>
                         <div>
                             <p class="py-4">{{ topic.description }}</p>
+                            {% if topic.image %}
+                            <img class="forum-img" src="{{ topic.image.url }}"></img>
+                            {% endif %}
                             <p>Posted by {{ topic.created_by }} - {{ topic.date | timesince }} ago</p>
                         </div>
                     </div>

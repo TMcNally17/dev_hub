@@ -19,33 +19,26 @@
 
 <article class="pale-bg">
     <section class="container">
-        <div class="col-12 content">
-            <div class="row">
-                {% if topic.image %}
-                <div class="col-md-2 col-sm-4">
-                    <img class="topic-img" src="{{ topic.image.url }}"></img>
-                </div>
-                {% else %}
-                <div class="col-md-2 col-sm-4"></div>
-                {% endif %}
-                <div class="col-md-10 col-sm-8">
+        <div class="col-12">
+            <div class="row content">
+                <div class="col-lg-8 offset-lg-2 col-sm-12 topic">
                     <div class="row justify-content-around px-5">
                         <div>
-                            <a href="{% url 'topic' topic_id %}">
-                                <h5>{{ topic.title }}</h5>
-                            </a>
+                            <h4 class="topic-title">{{ topic.title }}</h4>
                         </div>
                         <div>
                             <p>Posts: {{ topic.posts }}</p>
                         </div>
                     </div>
                     <div>
-                        <p class="pb-4">{{ topic.description }}</p>
-                        <p>By {{ topic.created_by }} on {{ topic.date }}</p>
+                        <p class="content-text">{{ topic.description }}</p>
+                        {% if topic.image %}
+                        <img class="forum-img" src="{{ topic.image.url }}"></img>
+                        {% endif %}
+                        <p>Posted by {{ topic.created_by }} - {{ topic.date | timesince }} ago</p>
                     </div>
                 </div>
             </div>
-            <hr>
         </div>
         
         <div class="col-lg-8 offset-lg-2 content">

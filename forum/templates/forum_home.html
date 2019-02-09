@@ -19,18 +19,18 @@
             {% for category in categories %}
             <div class="col-12">
                 <div class="row">
-                    <div class="col-md-2 col-sm-4">
-                        <img class="forum-img" src="{% static 'images/' %}{{category.image_url}}"></img>
+                    <div class="col-lg-3 col-sm-12">
+                        <img class="category-img d-flex mx-auto" src="{% static 'images/' %}{{category.image_url}}"></img>
                     </div>
-                    <div class="col-md-10 col-sm-8">
+                    <div class="col-lg-9 col-sm-12">
                         <div class="row justify-content-between forum">
-                            <div class="link">
+                            <div class="link col-lg-6 offset-lg-2 col-sm-10 offset-sm-1">
                                 <a href="{% url 'category' category.id %}">
-                                    <h5>{{ category.topic }} - {{ category.title }}</h5>
+                                    <h4>{{ category.topic }} - {{ category.title }}</h4>
                                 </a>
                             </div>
-                            <div>
-                                <h6>Posts: {{ category.posts }}</h6>
+                            <div class="col-sm-12 mt-2">
+                                <h5 class="float-right">Posts: {{ category.posts }}</h5>
                             </div>
                         </div>
                         <div>

@@ -16,8 +16,6 @@ class TestProfile(TestCase):
             password = "test_password")
         user.save()
         
-        user = User.objects.get(id=1)
-        
         user.profile.forum_tag = "Here is my Tag"
         user.profile.avatar = ""
         user.save()

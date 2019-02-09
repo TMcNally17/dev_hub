@@ -69,7 +69,7 @@ def profile(request):
     
     posts = Post.objects.filter(author=request.user).count()
     topics = Topic.objects.filter(created_by=request.user).count()
-    tickets = Ticket.objects.filter(created_by=request.user)
+    tickets = Ticket.objects.filter(created_by=request.user).order_by("date")
     
     return render(request, "profile.html", {"posts": posts,
                                             "topics": topics,

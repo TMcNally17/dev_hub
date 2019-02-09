@@ -47,6 +47,7 @@ a:hover {
 }
 
 .btn-custom {
+    margin: 0 0.5rem;
     padding: 0.5rem 2rem;
     color: #FFF;
     font-weight: 600;
@@ -63,6 +64,7 @@ a:hover {
 }
 
 .link {
+    text-align: center;
     border-bottom: solid 3px #39393A;
 }
 
@@ -127,8 +129,7 @@ a:hover {
     font-size: 1.5rem;
 }
 
-.blog-img,
-.profile-img {
+.blog-img {
     width: 100%;
 }
 
@@ -142,8 +143,14 @@ a:hover {
 
 .blog-title,
 .ticket-title {
-    padding: 1rem 0;
+    padding: 1rem 1rem;
     text-align: center;
+}
+
+.topic-title,
+.post-title {
+    padding: 0.5rem 0.5rem;
+    border-bottom: solid 3px #39393A;
 }
 
 .footer-text,
@@ -159,12 +166,16 @@ a:hover {
     color: #FFF;
 }
 
-.topic {
-    margin: 0.5rem 0;
+.topic,
+.post {
     padding: 1rem 1rem;
     border: double 10px #39393A;
     border-radius: 0.5rem;
     color: #000;
+}
+
+.forum {
+    padding: 1rem 1rem;
 }
 
 .profile {
@@ -181,14 +192,41 @@ a:hover {
     color: #FFF;
 }
 
-.forum-img {
-    width: 100%;
-    margin-bottom: 1rem;
+.forum-img,
+.profile-img {
+    display: inline-block;
+    margin: 1rem 1rem;
+    max-width: 75%;
+}
+
+.avatar-img {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.category-img {
+        width: 100%;
+    }
+
+.profile-sm {
+        display: block;
+        padding: 0;
+    }
+    
+.profile-lg,
+.hidden-sm,
+.author-lg{
+        display: none;
+    }
+    
+.author-sm {
+    display: flex;
 }
 
 #id_image,
 #id_avatar{
-    opacity: 0;
     background-color: #DADFE5;
     border: none;
     padding: 0.5rem 2rem;
@@ -212,22 +250,37 @@ a:hover {
 }
 
 @media (min-width: 576px) {
-
-    .category-img {
-        width: 100%;
+    
+    .profile-sm,
+    .author-sm {
+        display: none;
     }
     
+    .profile-lg,
+    .hidden-sm {
+        display: block;
+    }
+    
+    .author-lg {
+        display: flex;
+    }
+    
+    .forum-img,
+    .profile-img {
+        max-width: 50%;
+    }
+    
+    .category-img {
+        margin: 1rem 1rem;
+        width: 50%;
+    }
+
 }
 
 @media (min-width: 768px) {
     
     .about-card {
         height: 225px;
-    }
-    
-    .blog-img, 
-    .profile-img {
-        width: 75%;
     }
     
     .main-header {
@@ -244,6 +297,7 @@ a:hover {
         font-size: 6rem;
         padding: 5rem 0;
     }
+    
 }
 
 @media (min-width: 992px) {
@@ -264,6 +318,14 @@ a:hover {
     
     .about-title {
         padding: 2.5rem 0;
+    }
+    
+    .category-img {
+        width: 100%;
+    }
+    
+    .profile-img {
+        max-width: 75%;
     }
 }
 

@@ -26,7 +26,7 @@
                     <p class="content-text">{{ blog.description }}</p>
                     <h6 class="pb-2">Posted by {{ blog.author }} on {{ blog.date | date:"M. j. Y" }}</h6>
                 </div>
-                <div class="col-lg-4 col-sm-8 mx-auto">
+                <div class="col-lg-4 col-sm-8">
                     <img class="blog-img py-4" src="{% static 'images/' %}{{blog.image}}"></img>
                 </div>
             </div>

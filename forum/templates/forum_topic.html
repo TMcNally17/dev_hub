@@ -6,7 +6,7 @@
     <section class="container content">
         <div class="row">
             <a href="{% url 'category' category_id %}">
-                <div class="link">
+                <div class="link ml-4">
                     <h6>
                         <i class="fas fa-angle-double-right"></i>
                         Back to category
@@ -18,25 +18,21 @@
         
         <div class="col-12">
             <div class="row content">
-                {% if topic.image %}
-                <div class="col-md-2 col-sm-4">
-                    <img class="forum-img" src="{{ topic.image.url }}"></img>
-                </div>
-                {% else %}
-                <div class="col-md-2 col-sm-4"></div>
-                {% endif %}
-                <div class="col-md-8 col-sm-8 topic">
+                <div class="col-lg-8 offset-lg-2 col-sm-12 topic">
                     <div class="row justify-content-around px-5">
                         <div>
-                            <h5>{{ topic.title }}</h5>
+                            <h4 class="topic-title">{{ topic.title }}</h4>
                         </div>
                         <div>
                             <p>Posts: {{ topic.posts }}</p>
                         </div>
                     </div>
                     <div>
-                        <p class="py-4">{{ topic.description }}</p>
-                        <p>Posted by {{ topic.created_by }} - {{ topic.date | timesince }}</p>
+                        <p class="content-text">{{ topic.description }}</p>
+                        {% if topic.image %}
+                        <img class="forum-img" src="{{ topic.image.url }}"></img>
+                        {% endif %}
+                        <p>Posted by {{ topic.created_by }} - {{ topic.date | timesince }} ago</p>
                     </div>
                 </div>
             </div>
@@ -73,19 +69,12 @@
     <section class="container">
         <div class="content column">
             {% for post in posts %}
-            <div class="col-12">
+            <div>
                 <div class="row">
-                    {% if post.image %}
-                    <div class="col-md-2 col-sm-4">
-                        <img class="forum-img" src="{{ post.image.url }}"></img>
-                    </div>
-                    {% else %}
-                    <div class="col-md-2 col-sm-4"></div>
-                    {% endif %}
-                    <div class="col-md-9 col-sm-7">
+                    <div class="col-lg-8 offset-lg-2 col-sm-12 post blue-bg">
                         <div class="row justify-content-between px-5">
                             <div>
-                                <h5>{{ post.title }}</h5>
+                                <h4 class="post-title">{{ post.title }}</h4>
                             </div>
                             <div class="column justify-content-center">
                                 <p>
@@ -101,29 +90,43 @@
                                 </p>
                             </div>
                         </div>
-                        <p class="pb-4">{{ post.description }}</p>
-                    </div>
-                    <div class="col-1">
-                        {% if user == post.author or user.is_staff %}
-                        <a href="{% url 'edit_post' topic_id post.id %}">
-                            <button class="btn btn-custom blue-bg">Edit</button>
-                        </a>
+                        <div>
+                            <p class="content-text">{{ post.description }}</p>
+                            {% if post.image %}
+                            <div class="row justify-content-center">
+                                <img class="forum-img" src="{{ post.image.url }}"></img>
+                            </div>
+                            {% endif %}
+                            <p class="footer">{{ post.author.profile.forum_tag }}</p>
+                        </div>
+                        <div>
+                            {% if user == post.author or user.is_staff %}
+                            <a href="{% url 'edit_post' topic_id post.id %}">
+                                <button class="btn btn-custom darkgreen-bg">Edit</button>
+                            </a>
                         {% endif %}
+                        </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="author-lg row col-lg-8 offset-lg-2 col-sm-12 justify-content-center ">
                     {% if post.author.profile.avatar %}
-                    <div class="col-md-2 col-sm-4">
-                        <img class="forum-img" src="{{ post.author.profile.avatar }}"></img>
-                    </div>
+                    <img class="avatar-img" src="{{ post.author.profile.avatar }}"></img>
                     {% else %}
-                    <div class="col-md-2 col-sm-4">
-                        <img class="forum-img"  src="{% static 'images/default_profile.png' %}"></img>
-                    </div>
+                    <img class="avatar-img" src="{% static 'images/default_profile.png' %}"></img>
                     {% endif %}
-                    <div>
-                        <p>Posted by {{ post.author }} - {{ post.date | timesince }}</p>
-                        <p>{{ post.author.profile.forum_tag }}</p>
+                    <div class="ml-4 mt-4">
+                        <p>Posted by {{ post.author }} - {{ post.date | timesince }} ago</p>
+                    </div>
+                </div>
+                <div class="author-sm row col-lg-8 offset-lg-2 col-sm-12 justify-content-center py-3">
+                    {% if post.author.profile.avatar %}
+                    <img class="avatar-img" src="{{ post.author.profile.avatar }}"></img>
+                    {% else %}
+                    <img class="avatar-img" src="{% static 'images/default_profile.png' %}"></img>
+                    {% endif %}
+                    <div class="ml-4">
+                        <p>Posted by {{ post.author }}</p>
+                        <p>{{ post.date | timesince }} ago</p>
                     </div>
                 </div>
                 <hr>

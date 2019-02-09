@@ -28,47 +28,91 @@
 <article class="pale-bg container content-text">
     <section class="profile">
         <div class="row content">
-            <div class="col-lg-3 offset-lg-1 col-sm-4">
+            <div class="col-lg-3 col-sm-12">
                 {% if user.profile.avatar %}
                 <img class="profile-img" src="{{ user.profile.avatar.url }}"></img>
                 {% else %}
                 <img class="profile-img" src="{% static 'images/default_profile.png' %}"></img>
                 {% endif %}
             </div>
-            <div class="col-lg-6 col-sm-8">
+            <div class="col-lg-9 col-sm-12 profile-lg">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th>First Name</th>
+                            <td>{{ user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Name</th>
+                            <td>{{ user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Forum Tag</th>
+                            {% if user.profile.forum_tag %}
+                            <td>{{ user.profile.forum_tag }}</td>
+                            {% else %}
+                            <td>You don't have a tag yet.</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th>Joined</th>
+                            <td>{{ user.date_joined | timesince }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-9 col-sm-12 profile-sm">
                 <table class="table table-borderless">
                     <tbody>
                         <tr>
                             <th scope="row">First Name</th>
+                        </tr>
+                        <tr>
                             <td>{{ user.first_name }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Last Name</th>
+                        </tr>
+                        <tr>
                             <td>{{ user.last_name }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Email</th>
+                        </tr>
+                        <tr>
                             <td>{{ user.email }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Forum Tag</th>
+                        </tr>
+                        <tr>
+                            {% if user.profile.forum_tag %}
                             <td>{{ user.profile.forum_tag }}</td>
+                            {% else %}
+                            <td>You don't have a tag yet.</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <th scope="row">Joined</th>
+                        </tr>
+                        <tr>
                             <td>{{ user.date_joined | timesince }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-lg-8 offset-lg-1 row justify-content-around">
+        <div class="col-lg-8 offset-lg-2 row justify-content-around">
             <div>
-                <h5>{{ topics }}</h5>
+                <h4>{{ topics }}</h4>
                 <p>Topics</p>
             </div>
             <div>
-                <h5>{{ posts }}</h5>
+                <h4>{{ posts }}</h4>
                 <p>Posts</p>
             </div>
         </div>
@@ -96,11 +140,12 @@
                         {% for ticket in tickets %}
                         <tr>
                             <th scope="row">{{ ticket.title }}</th>
-                            <td>{{ ticket.description | truncatewords:10 }}</td>
+                            <td class="hidden-sm">{{ ticket.description | truncatewords:10 }}</td>
                             <td>{{ ticket.status }}</td>
                             <td>{{ ticket.date | date:"M. j. Y" }}</td>
                         </tr>
                         {% empty %}
+                        <h6 class="content-text">You have no tickets yet</h6>
                         {% endfor %}
                     </tbody>
                 </table>
