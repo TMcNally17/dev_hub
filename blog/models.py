@@ -11,25 +11,22 @@ class Blog(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, models.SET_NULL, null=True)
     image = models.CharField(max_length=50, null=True)
-    
+    forum_id = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     
     def __str__(self):
         return "{0}, {1}, {2}".format(self.title, self.date, self.author)
-        
     
     def save(self, *args, **kwargs):
-        
-        super().save(*args, **kwargs)
-        
-        if Topic.objects.filter(title=self.title).exists():
-            topic = Topic.objects.get(title=self.title)
-            Topic.objects.filter(id=topic.id).update(
+        try:
+            Topic.objects.filter(id=self.forum_id.id).update(
                 title = self.title,
                 description = self.description)
-        else:
-            Topic.objects.create(
+        except:
+            topic = Topic.objects.create(
                 title = self.title,
                 description = self.description,
-                image = "",
                 created_by = self.author,
                 category = Category(pk=3))
+            self.forum_id = Topic(pk=topic.id)
+        
+        super().save(*args, **kwargs)

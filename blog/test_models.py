@@ -15,13 +15,16 @@ class TestBlog(TestCase):
             
     def test_create_blog(self):
         
+        self.client.force_login(self.user)
+        
         # Test create blog post 
         blog = Blog(
             title = "test_title",
             topic = "test_topic",
             description = "test_description",
             author = self.user,
-            image = "test_image")
+            image = "test_image"
+        )
         blog.save()
         
         self.assertTrue(blog.date)
@@ -29,6 +32,6 @@ class TestBlog(TestCase):
         self.assertEqual(blog.author.username, "test_username")
         
         # Test to check save() creates a Topic with same data
-        topic = Topic.objects.get(id=1)
+        topic = Topic.objects.get(id=blog.forum_id.id)
         
         self.assertEqual(topic.title, "test_title")
