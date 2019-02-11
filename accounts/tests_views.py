@@ -46,3 +46,8 @@ class TestViews(TestCase):
         page = self.client.get("/accounts/profile/edit")
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "edit_profile.html")
+        
+    def test_get_edit_profile_without_user_login(self):
+        
+        page = self.client.get("/accounts/profile/edit")
+        self.assertRedirects(page, "/accounts/login/?next=/accounts/profile/edit")

@@ -19,13 +19,6 @@ class TestViews(TestCase):
     
     def test_get_donation_page(self):
         
-        donation = Donation(
-            first_name = "test_first",
-            last_name = "test_last",
-            email = "test@example.com",
-            donation_amount = 10)
-        donation.save()
-        
         page = self.client.get("/donations/")
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "donation.html")
@@ -37,3 +30,8 @@ class TestViews(TestCase):
         page = self.client.get("/donations/donate/500")
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "donation.html")
+        
+    def test_get_donate_page_without_user_login(self):
+        
+        page = self.client.get("/donations/donate/500")
+        self.assertRedirects(page, "/accounts/login/?next=/donations/donate/500")
