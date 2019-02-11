@@ -16,7 +16,7 @@ class TestForumForms(TestCase):
             
         self.client.force_login(self.user)
         
-    def test_create_topic_form(self):
+    def test_topic_form(self):
         
         # Test topic form is valid with correct inputs
         topic_form = TopicForm({
@@ -26,23 +26,8 @@ class TestForumForms(TestCase):
         topic_form.save()
         
         self.assertTrue(topic_form.is_valid())
-        
-    def test_edit_topic_form(self):
-        
-        # Test topic form is updated with different data
-        topic_form = TopicForm({
-            "title": "test_title",
-            "description": "test_description",
-            "image": "test_image"})
-        topic_form.save()
-        
-        topic = Topic.objects.get(id=1)
-        topic.title = "test_edit"
-        topic.save()
-        
-        self.assertEqual(topic.title, "test_edit")
-       
-    def test_create_post_form(self):
+    
+    def test_post_form(self):
         
         # Test post form is valid with correct inputs
         post_form = PostForm({
@@ -52,18 +37,3 @@ class TestForumForms(TestCase):
         post_form.save()
         
         self.assertTrue(post_form.is_valid())
-        
-    def test_edit_post_form(self):
-        
-        # Test post form is updated with different data
-        post_form = PostForm({
-            "title": "test_title",
-            "description": "test_description",
-            "image": "test_image"})
-        post_form.save()
-        
-        post = Post.objects.get(id=1)
-        post.title = "test_edit"
-        post.save()
-        
-        self.assertEqual(post.title, "test_edit")

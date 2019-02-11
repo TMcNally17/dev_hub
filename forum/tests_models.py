@@ -57,6 +57,7 @@ class TestForum(TestCase):
         
         self.assertEqual(topic.title, "test_topic_1")
         self.assertFalse(topic.locked)
+        self.assertTrue(topic.date)
         
     def test_create_post(self):
         
@@ -70,4 +71,5 @@ class TestForum(TestCase):
         post.save()
             
         self.assertEqual(post.title, "test_post")
-        self.assertEqual(post.author, self.user)
+        self.assertEqual(post.upvotes, 0)
+        self.assertTrue(post.date)

@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from .models import Category, Topic, Post
 
 class TestViews(TestCase):
@@ -79,6 +78,11 @@ class TestViews(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "topic_form.html")
         
+    def test_get_create_post_page_without_user_login(self):
+        
+        page = self.client.get("/forum/create_post/1")
+        self.assertRedirects(page, "/accounts/login/?next=/forum/create_post/1")
+        
     def test_get_create_post_page(self):
         
         self.client.force_login(self.user)
@@ -94,3 +98,10 @@ class TestViews(TestCase):
         page = self.client.get("/forum/edit_post/1/1")
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "post_form.html")
+    
+    def test_get_upvote(self):
+        
+        self.client.force_login(self.user)
+        
+        page = self.client.get("/forum/upvote/1")
+        self.assertRedirects(page, "/forum/topic/1")
