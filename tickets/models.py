@@ -13,7 +13,7 @@ class Ticket(models.Model):
         (STARTED, "Started"),
         (DONE, "Done"))
     
-    title = models.CharField(unique=True, max_length=150, blank=False, null=False)
+    title = models.CharField(max_length=150, blank=False, null=False)
     topic = models.CharField(max_length=150, blank=False, null=False)
     description = models.TextField(max_length=250, blank=False, null=False)
     date = models.DateTimeField(auto_now_add=True)
@@ -25,10 +25,7 @@ class Ticket(models.Model):
     def __str__(self):
         return "{0}, {1}, {2}".format(self.title, self.created_by, self.date)
         
-        
     def save(self, *args, **kwargs):
-        
-    
         try:
             Topic.objects.filter(id=self.forum_id.id).update(
                 title = self.title,

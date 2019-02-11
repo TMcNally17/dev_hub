@@ -14,6 +14,13 @@ class TestViews(TestCase):
                 password="test_password"
             )
             
+        self.ticket = Ticket.objects.create(
+            title = "test_title",
+            topic = "test_topic",
+            description = "test_description",
+            created_by = self.user)
+        self.ticket.save()
+            
         self.client.force_login(self.user)
     
     """
@@ -33,25 +40,12 @@ class TestViews(TestCase):
         self.assertTemplateUsed(page, "ticket_form.html")
         
     def test_get_edit_ticket(self):
-        ticket = Ticket(
-            title = "test_title",
-            topic = "test_topic",
-            description = "test_description",
-            created_by = self.user)
-        ticket.save()
         
         page = self.client.get("/tickets/edit/1")
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "ticket_form.html")
         
     def test_get_upvote(self):
-        
-        ticket = Ticket(
-            title = "test_title",
-            topic = "test_topic",
-            description = "test_description",
-            created_by = self.user)
-        ticket.save()
         
         page = self.client.get("/tickets/upvote/1")
         self.assertRedirects(page, "/tickets/")
