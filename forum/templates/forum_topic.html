@@ -51,7 +51,10 @@
                 <button class="btn btn-custom blue-bg">Reply</button>
             </a>
             {% else %}
-            <p class="px-4">To create a ticket please <a href="{% url 'login' %}">Login</a></p>
+            <p class="px-4">
+                To Reply please 
+                <strong><a href="{% url 'login' %}">Login</a></strong>
+            </p>
             {% endif %}
         </div>
         

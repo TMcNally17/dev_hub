@@ -229,8 +229,8 @@ a:hover {
 #id_avatar{
     background-color: #DADFE5;
     border: none;
-    padding: 0.5rem 2rem;
     color: #39393A;
+    width: auto;
 }
 
 #donation_progress {
