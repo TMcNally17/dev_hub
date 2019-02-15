@@ -104,6 +104,8 @@ provides UX:
 ### Planned Features
  
 - Contact Form
+    - to users to contact the site
+
 
 ## Technology Used
 
