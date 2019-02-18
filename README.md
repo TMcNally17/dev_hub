@@ -172,15 +172,15 @@ You need to install the dependencies in requirements.txt:
 
     - pip install -r requirements.txt
     
-You need to set environ variables: 
+You need to set environments variables in the CLI: 
 
-    - DEVELOPMENT=1
-    - SECRET_KEY=[Insert a secret key]
+    - export DEVELOPMENT=1
+    - export SECRET_KEY=[Insert a secret key]
     
 You also need to include Stripe Keys
 
-    - STRIPE_PUBLISHABLE=[Insert a stripe key]
-    - STRIPE_SECRET=[Insert a stripe secret key]
+    - export STRIPE_PUBLISHABLE=[Insert a stripe key]
+    - export STRIPE_SECRET=[Insert a stripe secret key]
     
 Run the project by:
 
